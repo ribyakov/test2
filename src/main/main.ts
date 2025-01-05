@@ -2,6 +2,7 @@ import {app, BrowserWindow, ipcMain, session} from 'electron';
 import {join} from 'path';
 import "reflect-metadata";
 import { AppDataSource } from './typeorm.config';
+import {Student} from "./entities/student.entity";
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
@@ -26,6 +27,9 @@ function createWindow () {
 app.whenReady().then(() => {
   createWindow();
   AppDataSource.initialize();
+
+  console.log(process.resourcesPath)
+  console.log(join(process.resourcesPath, "/database/database.db"))
 
   ipcMain.handle("repository:exec", (event, repositoryName, method, data) => {
     const repository = require(`./repositories/${repositoryName}`).default;
