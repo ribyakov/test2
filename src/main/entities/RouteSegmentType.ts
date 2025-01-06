@@ -1,4 +1,4 @@
-export enum RouteSegment {
+export enum RouteSegmentType {
   DEPARTURE,
   SEA,
   ARRIVAL,

@@ -1,12 +1,13 @@
-import StudentRepository from "../../main/repositories/StudentRepository";
+import { VoyageTaskSegment } from "../../main/entities";
 
 export default interface ElectronApi {
-  sendMessage: (message: string) => void,
-  StudentRepository: typeof StudentRepository
+  voyage: {
+    segments: (id: number) => Promise<VoyageTaskSegment[]>;
+  };
 }
 
 declare global {
   interface Window {
-    electronAPI: ElectronApi,
+    api: ElectronApi;
   }
 }

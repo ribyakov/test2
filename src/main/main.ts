@@ -2,10 +2,12 @@ import { app, BrowserWindow, ipcMain, session } from "electron";
 import { join } from "path";
 import "reflect-metadata";
 import { AppDataSource } from "./typeorm.config";
+import { VoyageController } from "./controllers/VoyageController";
+import IpcMain = Electron.IpcMain;
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 800,
+    width: 1200,
     height: 600,
     webPreferences: {
       preload: join(__dirname, "preload.js"),
@@ -20,16 +22,16 @@ function createWindow() {
   } else {
     mainWindow.loadFile(join(app.getAppPath(), "renderer", "index.html"));
   }
+
+  // Open the DevTools.
+  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async () => {
   createWindow();
   await AppDataSource.initialize();
 
-  ipcMain.handle("repository:exec", (event, repositoryName, method, data) => {
-    const repository = require(`./repositories/${repositoryName}`).default;
-    return repository[method](data);
-  });
+  connectApi(ipcMain);
 
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     callback({
@@ -53,6 +55,9 @@ app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
 });
 
-ipcMain.on("message", (event, message) => {
-  console.log(message);
-});
+const connectApi = (ipcMain: IpcMain) => {
+  ipcMain.handle("voyage/segments", async (_, id: number) => {
+    const controller = new VoyageController();
+    return controller.segments(id);
+  });
+};

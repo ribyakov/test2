@@ -14,6 +14,7 @@ import { VoyageTaskStorageTankFunction } from "./VoyageTaskStorageTankFunction.e
 import { VoyageTaskOilRemaining } from "./VoyageTaskOilRemaining.entity";
 import { VoyageTaskFuelRemaining } from "./VoyageTaskFuelRemaining.entity";
 import { VoyageTaskWaterRemaining } from "./VoyageTaskWaterRemaining.entity";
+import { VoyageTaskCheckPoint } from "./VoyageTaskCheckPoint.entity";
 
 @Entity()
 export class VoyageTask {
@@ -50,11 +51,11 @@ export class VoyageTask {
   @Column()
   comments: string;
 
-  @ManyToMany(() => CheckPoint, {
+  @OneToMany(() => VoyageTaskCheckPoint, (point) => point.voyage, {
     eager: true,
+    cascade: true,
   })
-  @JoinTable()
-  checkPoints: CheckPoint[];
+  checkPoints: VoyageTaskCheckPoint[];
 
   @OneToMany(
     () => VoyageTaskStorageTankFunction,

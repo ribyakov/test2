@@ -2,7 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { GeographicCoordinate } from "./GeographicCoordinate.entity";
@@ -15,7 +15,7 @@ export class CheckPoint {
   @Column()
   name: string;
 
-  @OneToOne(() => GeographicCoordinate)
+  @ManyToOne(() => GeographicCoordinate)
   @JoinColumn()
   geoPoint: GeographicCoordinate;
 }

@@ -2,12 +2,13 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { VoyageTask } from "./VoyageTask.entity";
 import { CheckPoint } from "../CheckPoint.entity";
-import { RouteSegment } from "../RouteSegment";
+import { RouteSegmentType } from "../RouteSegmentType";
 
 @Entity()
 export class VoyageTaskSegment {
@@ -20,22 +21,22 @@ export class VoyageTaskSegment {
   @Column()
   order: number;
 
-  @OneToOne(() => VoyageTask)
+  @ManyToOne(() => VoyageTask, { onDelete: "CASCADE" })
   @JoinColumn()
   voyage: VoyageTask;
 
-  @OneToOne(() => CheckPoint)
+  @ManyToOne(() => CheckPoint)
   @JoinColumn()
   startPoint: CheckPoint;
 
-  @OneToOne(() => CheckPoint)
+  @ManyToOne(() => CheckPoint)
   @JoinColumn()
   currentPoint: CheckPoint;
 
-  @OneToOne(() => CheckPoint)
+  @ManyToOne(() => CheckPoint)
   @JoinColumn()
   finishPoint: CheckPoint;
 
   @Column()
-  segment: RouteSegment;
+  segmentType: RouteSegmentType;
 }

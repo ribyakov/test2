@@ -66,7 +66,7 @@ AppDataSource.initialize().then(async () => {
   voyage.scheduledFinishDate = new Date();
   voyage.comments = "test";
 
-  voyage.checkPoints = [checkpoint];
+  // voyage.checkPoints = [checkpoint];
 
   let storageTank = new StorageTank();
   storageTank.name = "StorageTank";

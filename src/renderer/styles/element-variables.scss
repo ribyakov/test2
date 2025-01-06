@@ -1,0 +1,9 @@
+:root {
+  --el-font-family: 'Roboto';
+}
+
+/* Optional: Force all Element Plus components to use the custom font */
+[class^="el-"],
+[class*=" el-"] {
+  font-family: var(--el-font-family), serif;
+}

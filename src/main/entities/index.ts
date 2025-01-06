@@ -17,6 +17,7 @@ import { VoyageTaskOilRemaining } from "./Voyage/VoyageTaskOilRemaining.entity";
 import { VoyageTaskFuelRemaining } from "./Voyage/VoyageTaskFuelRemaining.entity";
 import { VoyageTaskWaterRemaining } from "./Voyage/VoyageTaskWaterRemaining.entity";
 import { VoyageTaskSegment } from "./Voyage/VoyageTaskSegment.entity";
+import { VoyageTaskCheckPoint } from "./Voyage/VoyageTaskCheckPoint.entity";
 
 export * from "./CargoType.entity";
 export * from "./GeographicCoordinate.entity";
@@ -37,8 +38,10 @@ export * from "./Voyage/VoyageTaskOilRemaining.entity";
 export * from "./Voyage/VoyageTaskFuelRemaining.entity";
 export * from "./Voyage/VoyageTaskWaterRemaining.entity";
 export * from "./Voyage/VoyageTaskSegment.entity";
+export * from "./Voyage/VoyageTaskCheckPoint.entity";
 
 export const entities = [
+  VoyageTaskCheckPoint,
   VoyageTaskSegment,
   VoyageTaskWaterRemaining,
   VoyageTaskOilRemaining,
