@@ -12,7 +12,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-    "types": ["element-plus/global"]
   },
   "exclude": ["static"]
 }
