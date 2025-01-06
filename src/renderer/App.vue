@@ -29,6 +29,8 @@ onBeforeMount(async () => {
 </script>
 
 <template>
+  <el-input v-model="name"></el-input>
+  <el-input v-model="name"></el-input>
   <input type="text" v-model="name" />
   <button @click="onStudentAddClick">Добавить</button>
   <button @click="onSaveClick">Открыть файл</button>

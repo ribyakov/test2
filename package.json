@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node scripts/dev-server.js",
     "build": "node scripts/build.js && electron-builder",
-    "test": "node scripts/build.js && node build/main/test2.js",
+    "test": "node scripts/build.js && node build/main/test3.js",
     "build:win": "node scripts/build.js && electron-builder --win",
     "build:mac": "node scripts/build.js && electron-builder --mac",
     "build:linux": "node scripts/build.js && electron-builder --linux",
@@ -31,6 +31,7 @@
     "vite": "^5.0.12"
   },
   "dependencies": {
+    "element-plus": "^2.9.2",
     "prettier": "^3.4.2",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.1.7",
