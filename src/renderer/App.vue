@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
-import { Student } from '../main/entities/student.entity';
+import { onBeforeMount, ref } from "vue";
+//import { Student } from '../main/entities/student.entity';
 
-const students = ref<Student[]>([])
+const students = ref<any[]>([]);
 const name = ref("");
 
-async function onStudentAddClick() { 
+async function onStudentAddClick() {
   await window.electronAPI.StudentRepository.upsert({
     student: {
-      fio: name.value
-    }
+      fio: name.value,
+    },
   });
   await fetchStudents();
 }
@@ -23,23 +23,19 @@ async function onSaveClick() {
   alert(JSON.stringify(r));
 }
 
-
 onBeforeMount(async () => {
   await fetchStudents();
-})
-
+});
 </script>
 
 <template>
-<input type="text" v-model="name">
-<button @click="onStudentAddClick">Добавить</button>
-<button @click="onSaveClick">Открыть файл</button>
+  <input type="text" v-model="name" />
+  <button @click="onStudentAddClick">Добавить</button>
+  <button @click="onSaveClick">Открыть файл</button>
 
-<div v-for="s in students">
-{{ s }}
-</div>
+  <div v-for="s in students">
+    {{ s }}
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
