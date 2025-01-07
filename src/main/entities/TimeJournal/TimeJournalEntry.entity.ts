@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Operation } from "../Operation/Operation.entity";
+import { Operation } from "../masterdata/Operation/Operation.entity";
 import { TimeJournal } from "./TimeJournal.entity";
 
 @Entity()

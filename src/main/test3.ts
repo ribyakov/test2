@@ -5,7 +5,7 @@ import {
   Oil,
   OilType,
   Ship,
-  StorageTank,
+  Tank,
   TimeJournal,
   TimeJournalEntry,
   Unit,
@@ -14,7 +14,7 @@ import {
   VoyageTaskSegment,
 } from "./entities";
 import { VoyageTaskRepository } from "./repositories/VoyageTaskRepository";
-import { RouteSegmentType } from "./entities/RouteSegmentType";
+import { RouteSegmentType } from "./entities/Voyage/RouteSegmentType";
 import { TimeJournalRepository } from "./repositories/TimeJournalRepository";
 
 AppDataSource.initialize().then(async () => {
@@ -24,7 +24,7 @@ AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.clear(Ship);
   await AppDataSource.manager.clear(Oil);
   await AppDataSource.manager.clear(GeographicCoordinate);
-  await AppDataSource.manager.clear(StorageTank);
+  await AppDataSource.manager.clear(Tank);
 
   let unit1 = new Unit();
   unit1.name = "Unit1";

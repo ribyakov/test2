@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
   Index,
 } from "typeorm";
-import { StorageTank } from "../StorageTank.entity";
+import { Tank } from "../masterdata/Tank/Tank.entity";
 import { VoyageTask } from "./VoyageTask.entity";
-import { Oil } from "../Oil.entity";
-import { Fuel } from "../Fuel.entity";
+import { Oil } from "../masterdata/Oil/Oil.entity";
+import { Fuel } from "../masterdata/Fuel/Fuel.entity";
 
 @Entity()
 @Index(["voyage", "storageTank", "fuel"], { unique: true })
@@ -17,9 +17,9 @@ export class VoyageTaskFuelRemaining {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => StorageTank)
+  @ManyToOne(() => Tank)
   @JoinColumn({ name: "storage_tank_id" })
-  storageTank: StorageTank;
+  storageTank: Tank;
 
   @ManyToOne(() => Oil)
   @JoinColumn()

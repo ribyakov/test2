@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { GeographicCoordinate } from "./GeographicCoordinate.entity";
+import { GeographicCoordinate } from "../GeographicCoordinate.entity";
 
 @Entity()
 export class CheckPoint {

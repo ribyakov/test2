@@ -6,8 +6,8 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { VoyageTask } from "./VoyageTask.entity";
-import { CheckPoint } from "../CheckPoint.entity";
-import { RouteSegmentType } from "../RouteSegmentType";
+import { CheckPoint } from "../masterdata/CheckPoint.entity";
+import { RouteSegmentType } from "./RouteSegmentType";
 
 @Entity()
 export class VoyageTaskSegment {

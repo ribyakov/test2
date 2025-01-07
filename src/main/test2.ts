@@ -4,7 +4,7 @@ import {
   GeographicCoordinate,
   OilType,
   Ship,
-  StorageTank,
+  Tank,
   Unit,
   Oil,
   VoyageTask,
@@ -12,7 +12,7 @@ import {
   VoyageTaskStorageTankFunction,
 } from "./entities";
 import { VoyageTaskRepository } from "./repositories/VoyageTaskRepository";
-import { StorageTankFunction } from "./entities/StorageTankFunction";
+import { TankFunction } from "./entities/masterdata/Tank/TankFunction";
 
 AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.clear(VoyageTask);
@@ -21,7 +21,7 @@ AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.clear(Ship);
   await AppDataSource.manager.clear(Oil);
   await AppDataSource.manager.clear(GeographicCoordinate);
-  await AppDataSource.manager.clear(StorageTank);
+  await AppDataSource.manager.clear(Tank);
 
   let unit1 = new Unit();
   unit1.name = "Unit1";
@@ -68,7 +68,7 @@ AppDataSource.initialize().then(async () => {
 
   // voyage.checkPoints = [checkpoint];
 
-  let storageTank = new StorageTank();
+  let storageTank = new Tank();
   storageTank.name = "StorageTank";
   storageTank.capacity = 9999;
 
@@ -76,11 +76,11 @@ AppDataSource.initialize().then(async () => {
 
   let stf1 = new VoyageTaskStorageTankFunction();
   stf1.storageTank = storageTank;
-  stf1.function = StorageTankFunction.OIL;
+  stf1.function = TankFunction.OIL;
 
   let stf2 = new VoyageTaskStorageTankFunction();
   stf2.storageTank = storageTank;
-  stf2.function = StorageTankFunction.OIL;
+  stf2.function = TankFunction.OIL;
 
   voyage.storageTankFunctions = [stf1, stf2];
 

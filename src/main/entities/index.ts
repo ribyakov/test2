@@ -1,16 +1,16 @@
-import { CargoType } from "./CargoType.entity";
+import { CargoType } from "./masterdata/CargoType.entity";
 import { GeographicCoordinate } from "./GeographicCoordinate.entity";
-import { Ship } from "./Ship.entity";
-import { Unit } from "./Unit.entity";
-import { OilType } from "./OilType.entity";
-import { OperationType } from "./Operation/OperationType.entity";
-import { FuelType } from "./FuelType.entity";
-import { Oil } from "./Oil.entity";
-import { Operation } from "./Operation/Operation.entity";
-import { ShipConditionIndicator } from "./ShipConditionIndicator.entity";
-import { CheckPoint } from "./CheckPoint.entity";
-import { StorageTank } from "./StorageTank.entity";
-import { Fuel } from "./Fuel.entity";
+import { Ship } from "./masterdata/Ship.entity";
+import { Unit } from "./masterdata/Unit.entity";
+import { OilType } from "./masterdata/Oil/OilType.entity";
+import { OperationType } from "./masterdata/Operation/OperationType.entity";
+import { FuelType } from "./masterdata/Fuel/FuelType.entity";
+import { Oil } from "./masterdata/Oil/Oil.entity";
+import { Operation } from "./masterdata/Operation/Operation.entity";
+import { ShipConditionIndicator } from "./masterdata/ShipConditionIndicator.entity";
+import { CheckPoint } from "./masterdata/CheckPoint.entity";
+import { Tank } from "./masterdata/Tank/Tank.entity";
+import { Fuel } from "./masterdata/Fuel/Fuel.entity";
 import { VoyageTask } from "./Voyage/VoyageTask.entity";
 import { VoyageTaskStorageTankFunction } from "./Voyage/VoyageTaskStorageTankFunction.entity";
 import { VoyageTaskOilRemaining } from "./Voyage/VoyageTaskOilRemaining.entity";
@@ -20,22 +20,22 @@ import { VoyageTaskSegment } from "./Voyage/VoyageTaskSegment.entity";
 import { VoyageTaskCheckPoint } from "./Voyage/VoyageTaskCheckPoint.entity";
 import { TimeJournal } from "./TimeJournal/TimeJournal.entity";
 import { TimeJournalEntry } from "./TimeJournal/TimeJournalEntry.entity";
-import { TimeZone } from "./TimeZone.entity";
+import { TimeZone } from "./masterdata/TimeZone.entity";
 
-export * from "./CargoType.entity";
+export * from "./masterdata/CargoType.entity";
 export * from "./GeographicCoordinate.entity";
-export * from "./Ship.entity";
-export * from "./TimeZone.entity";
-export * from "./Unit.entity";
-export * from "./OilType.entity";
-export * from "./Operation/OperationType.entity";
-export * from "./FuelType.entity";
-export * from "./Oil.entity";
-export * from "./Operation/Operation.entity";
-export * from "./ShipConditionIndicator.entity";
-export * from "./CheckPoint.entity";
-export * from "./StorageTank.entity";
-export * from "./Fuel.entity";
+export * from "./masterdata/Ship.entity";
+export * from "./masterdata/TimeZone.entity";
+export * from "./masterdata/Unit.entity";
+export * from "./masterdata/Oil/OilType.entity";
+export * from "./masterdata/Operation/OperationType.entity";
+export * from "./masterdata/Fuel/FuelType.entity";
+export * from "./masterdata/Oil/Oil.entity";
+export * from "./masterdata/Operation/Operation.entity";
+export * from "./masterdata/ShipConditionIndicator.entity";
+export * from "./masterdata/CheckPoint.entity";
+export * from "./masterdata/Tank/Tank.entity";
+export * from "./masterdata/Fuel/Fuel.entity";
 export * from "./Voyage/VoyageTask.entity";
 export * from "./Voyage/VoyageTaskStorageTankFunction.entity";
 export * from "./Voyage/VoyageTaskOilRemaining.entity";
@@ -57,7 +57,7 @@ export const entities = [
   VoyageTaskStorageTankFunction,
   VoyageTask,
   Fuel,
-  StorageTank,
+  Tank,
   CheckPoint,
   ShipConditionIndicator,
   Operation,

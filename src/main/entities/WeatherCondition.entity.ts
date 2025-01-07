@@ -5,7 +5,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Unit } from "./Unit.entity";
+import { Unit } from "./masterdata/Unit.entity";
 
 @Entity()
 export class Oil {

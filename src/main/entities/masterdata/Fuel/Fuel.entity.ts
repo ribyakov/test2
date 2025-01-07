@@ -5,7 +5,6 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { OilType } from "./OilType.entity";
 import { FuelType } from "./FuelType.entity";
 
 @Entity()

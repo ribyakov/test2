@@ -8,8 +8,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Ship } from "../Ship.entity";
-import { CheckPoint } from "../CheckPoint.entity";
+import { Ship } from "../masterdata/Ship.entity";
+import { CheckPoint } from "../masterdata/CheckPoint.entity";
 import { VoyageTaskStorageTankFunction } from "./VoyageTaskStorageTankFunction.entity";
 import { VoyageTaskOilRemaining } from "./VoyageTaskOilRemaining.entity";
 import { VoyageTaskFuelRemaining } from "./VoyageTaskFuelRemaining.entity";

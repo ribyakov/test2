@@ -5,7 +5,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Unit } from "./Unit.entity";
+import { Unit } from "../Unit.entity";
 
 @Entity()
 export class OilType {

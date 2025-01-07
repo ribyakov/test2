@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { VoyageTaskSegment } from "../Voyage/VoyageTaskSegment.entity";
-import { TimeZone } from "../TimeZone.entity";
+import { TimeZone } from "../masterdata/TimeZone.entity";
 import { TimeJournalEntry } from "./TimeJournalEntry.entity";
 
 @Entity()

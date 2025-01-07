@@ -5,8 +5,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { StorageTank } from "../StorageTank.entity";
-import { StorageTankFunction } from "../StorageTankFunction";
+import { Tank } from "../masterdata/Tank/Tank.entity";
+import { TankFunction } from "../masterdata/Tank/TankFunction";
 import { VoyageTask } from "./VoyageTask.entity";
 
 @Entity()
@@ -14,12 +14,12 @@ export class VoyageTaskStorageTankFunction {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => StorageTank)
+  @ManyToOne(() => Tank)
   @JoinColumn({ name: "storage_tank_id" })
-  storageTank: StorageTank;
+  storageTank: Tank;
 
   @Column()
-  function: StorageTankFunction;
+  function: TankFunction;
 
   @ManyToOne(() => VoyageTask, (task) => task.storageTankFunctions, {
     onDelete: "CASCADE",

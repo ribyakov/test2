@@ -1,6 +1,6 @@
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { VoyageTask } from "./VoyageTask.entity";
-import { CheckPoint } from "../CheckPoint.entity";
+import { CheckPoint } from "../masterdata/CheckPoint.entity";
 
 @Entity()
 export class VoyageTaskCheckPoint {
