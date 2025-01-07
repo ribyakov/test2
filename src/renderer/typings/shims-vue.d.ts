@@ -1,6 +1,7 @@
-declare module '*.vue' {
-  import type { DefineComponent } from 'vue'
+import { MomentInput, Moment } from "moment/moment";
 
-  const component: DefineComponent<{}, {}, any>
-  export default component
+declare module "@vue/runtime-core" {
+  interface ComponentCustomProperties {
+    $moment: (date: MomentInput) => Moment;
+  }
 }
