@@ -31,6 +31,7 @@ export class TimeJournalEntry {
 
   @ManyToOne(() => TimeJournal, (journal) => journal.entries, {
     onDelete: "CASCADE",
+    orphanedRowAction: "delete",
   })
   journal: TimeJournal;
 }
