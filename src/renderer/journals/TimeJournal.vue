@@ -1,47 +1,52 @@
 <template>
-  <el-table @row-click="rowClick" stripe :data="tableData" style="width: 100%">
-    <el-table-column prop="date" label="Date" width="180" />
-    <el-table-column prop="startTime" label="start" width="180" />
-    <el-table-column prop="endTime" label="end" width="180" />
+  <el-table @row-click="rowClick" stripe :data="entries" style="width: 100%">
+    <el-table-column v-slot="{ row }" label="Date" width="180">
+      {{ $moment(row.date).format("YYYY-MM-DD") }}
+    </el-table-column>
+    <el-table-column v-slot="{ row }" label="start" width="180">
+      {{ $moment(row.startTime).format("HH:mm") }}
+    </el-table-column>
+    <el-table-column v-slot="{ row }" label="start" width="180">
+      {{ $moment(row.endTime).format("HH:mm") }}
+    </el-table-column>
     <el-table-column prop="operation" label="operation" />
     <el-table-column prop="comment" label="comment" />
   </el-table>
-  <el-time-picker
-    v-model="value2"
-    is-range
-    arrow-control
-    range-separator="по"
-  />
+  <TimeJournalForm ref="form" />
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
+import TimeJournalForm from "./TimeJournalForm.vue";
+import { TimeJournal, VoyageTaskSegment } from "../../main/entities";
 
-const value2 = ref<[Date, Date]>([
-  new Date(2016, 9, 10, 8, 40),
-  new Date(2016, 9, 10, 9, 40),
-]);
+const props = defineProps<{
+  segment?: VoyageTaskSegment;
+}>();
+
+const journal = ref<TimeJournal | null>();
+
+const entries = computed(() => {
+  return (journal.value?.entries ?? []).map((entry) => ({
+    ...entry,
+    date: entry.startTime,
+  }));
+});
+
+watch(
+  () => props.segment,
+  async () => {
+    if (!props.segment) return;
+    journal.value = await window.api.timeJournal.getBySegmentId(
+      props.segment.id,
+    );
+    console.log(journal.value);
+  },
+);
+
+const form = ref<InstanceType<typeof TimeJournalForm> | null>(null);
 
 const rowClick = (row: any, column: any, event: Event) => {
-  console.log(row, column, event);
-  row.name = "test";
+  form.value?.show();
 };
-const tableData = [
-  {
-    id: 1,
-    date: "2016-05-03",
-    startTime: "10:20:00",
-    endTime: "10:30:00",
-    operation: 1,
-    comment: "Tom",
-  },
-  {
-    id: 2,
-    date: "2016-05-04",
-    startTime: "11:20:00",
-    endTime: "12:30:00",
-    operation: 1,
-    comment: "Tom2",
-  },
-];
 </script>

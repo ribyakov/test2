@@ -12,28 +12,29 @@ const fetchVoyageSegments = async (id: number) => {
 };
 
 onBeforeMount(async () => {
-  await fetchVoyageSegments(8);
+  await fetchVoyageSegments(1);
 });
 </script>
 
 <template>
   <el-select
     v-model="currentSegment"
-    placeholder="Select"
+    placeholder="Выберите часть маршрута"
     size="large"
     style="width: 240px"
+    value-key="id"
   >
     <el-option
       v-for="item in segments"
       :key="item.id"
       :label="item.name"
-      :value="item.id"
+      :value="item"
     />
   </el-select>
   <div>
     <el-tabs v-model="activeTab" class="demo-tabs">
       <el-tab-pane label="Журнал учета времени" name="first"
-        ><TimeJournal
+        ><TimeJournal :segment="currentSegment"
       /></el-tab-pane>
     </el-tabs>
   </div>
