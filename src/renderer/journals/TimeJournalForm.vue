@@ -23,16 +23,12 @@
       </el-form-item>
 
       <el-form-item required label="Zones" :label-width="formLabelWidth">
-        <el-select v-model="form.operation" placeholder="Please select a zone">
-          <el-option label="Zone No.1" value="shanghai" />
-          <el-option label="Zone No.2" value="beijing" />
-        </el-select>
       </el-form-item>
     </el-form>
 
     <el-form-item label="Комментарий" :label-width="formLabelWidth">
       <el-input
-        v-model="form.comment"
+        v-model="form.comments"
         :autosize="{ minRows: 2, maxRows: 4 }"
         type="textarea"
         placeholder="Комментарий"
@@ -41,7 +37,7 @@
     <template #footer>
       <div class="dialog-footer">
         <el-button @click="hide">Cancel</el-button>
-        <el-button type="primary" @click="hide"> Confirm </el-button>
+        <el-button type="primary" @click="save"> Confirm </el-button>
       </div>
     </template>
   </el-dialog>
@@ -49,19 +45,66 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
+import { TimeJournalEntry } from "../../main/entities";
+import moment from "moment";
+
+type Form = {
+  date: Date;
+  period: [Date, Date];
+  comments: string | null;
+  operation: null;
+};
 
 const visible = ref(false);
 
+type NullableProperties<T> = {
+  [K in keyof T]: T[K] | null;
+};
+
+let currentEntry: NullableProperties<TimeJournalEntry> = resetEntry();
+
+function resetEntry(): NullableProperties<TimeJournalEntry> {
+  return {
+    id: null,
+    startTime: null,
+    endTime: null,
+    comments: null,
+    operation: null,
+    uuid: null,
+    journal: null,
+  };
+}
+
 const formLabelWidth = "140px";
 
-const form = reactive({
-  date: null,
-  period: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
-  comment: null,
+const form = reactive<Form>({
+  date: new Date(0, 0, 0, 0, 0),
+  period: [new Date(0, 0, 0, 0, 0), new Date(0, 0, 0, 0, 0)],
+  comments: "",
   operation: null,
 });
 
-const show = () => {
+const show = (entry?: TimeJournalEntry) => {
+  let date = moment();
+
+  if (entry) {
+    currentEntry = entry;
+    date = moment(currentEntry.startTime);
+    const endDate = moment(currentEntry.endTime);
+    form.period = [
+      new Date(0, 0, 0, date.hour(), date.minutes()),
+      new Date(0, 0, 0, endDate.hour(), endDate.minutes()),
+    ];
+  } else {
+    currentEntry = resetEntry();
+    form.period = [
+      new Date(0, 0, 0, date.hour(), date.minutes()),
+      new Date(0, 0, 0, 23, 59),
+    ];
+  }
+
+  form.date = new Date(date.year(), date.month(), date.date());
+  form.comments = currentEntry.comments;
   visible.value = true;
 };
 
@@ -69,5 +112,30 @@ const hide = () => {
   visible.value = false;
 };
 
+const save = () => {
+  currentEntry.operation = form.operation;
+  currentEntry.comments = form.comments;
+
+  const startTime = moment(form.period[0]);
+  const endTime = moment(form.period[1]);
+
+  currentEntry.startTime = moment(form.date)
+    .add(startTime.hours(), "hours")
+    .add(startTime.minutes(), "minutes")
+    .add(startTime.seconds(), "seconds")
+    .toDate();
+
+  currentEntry.endTime = moment(form.date)
+    .add(endTime.hours(), "hours")
+    .add(endTime.minutes(), "minutes")
+    .add(endTime.seconds(), "seconds")
+    .toDate();
+
+  emit("save", currentEntry as TimeJournalEntry);
+};
+
+const emit = defineEmits<{
+  (e: "save", entry: TimeJournalEntry): void;
+}>();
 defineExpose({ show, hide });
 </script>

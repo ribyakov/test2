@@ -1,7 +1,8 @@
 <template>
-  <el-table @row-click="rowClick" stripe :data="entries" style="width: 100%">
+  <el-button type="primary" :icon="Plus" @click="add()">Добавить</el-button>
+  <el-table @row-click="edit" stripe :data="entries" style="width: 100%">
     <el-table-column v-slot="{ row }" label="Date" width="180">
-      {{ $moment(row.date).format("YYYY-MM-DD") }}
+      {{ $moment(row.startTime).format("YYYY-MM-DD") }}
     </el-table-column>
     <el-table-column v-slot="{ row }" label="start" width="180">
       {{ $moment(row.startTime).format("HH:mm") }}
@@ -10,15 +11,21 @@
       {{ $moment(row.endTime).format("HH:mm") }}
     </el-table-column>
     <el-table-column prop="operation" label="operation" />
-    <el-table-column prop="comment" label="comment" />
+    <el-table-column prop="comments" label="comment" />
   </el-table>
-  <TimeJournalForm ref="form" />
+  <TimeJournalForm ref="form" @save="onEntrySave" />
 </template>
 
 <script lang="ts" setup>
+import { Plus } from "@element-plus/icons-vue";
 import { computed, ref, watch } from "vue";
 import TimeJournalForm from "./TimeJournalForm.vue";
-import { TimeJournal, VoyageTaskSegment } from "../../main/entities";
+import {
+  TimeJournal,
+  TimeJournalEntry,
+  VoyageTaskSegment,
+} from "../../main/entities";
+import { cloneDeep } from "lodash";
 
 const props = defineProps<{
   segment?: VoyageTaskSegment;
@@ -26,27 +33,39 @@ const props = defineProps<{
 
 const journal = ref<TimeJournal | null>();
 
-const entries = computed(() => {
-  return (journal.value?.entries ?? []).map((entry) => ({
-    ...entry,
-    date: entry.startTime,
-  }));
-});
+const entries = computed(() => journal.value?.entries || []);
 
 watch(
   () => props.segment,
-  async () => {
+  () => {
     if (!props.segment) return;
-    journal.value = await window.api.timeJournal.getBySegmentId(
-      props.segment.id,
-    );
-    console.log(journal.value);
+    load();
   },
 );
 
+const load = async () => {
+  journal.value = await window.api.timeJournal.getBySegmentId(
+    props.segment!.id,
+  );
+};
+
 const form = ref<InstanceType<typeof TimeJournalForm> | null>(null);
 
-const rowClick = (row: any, column: any, event: Event) => {
+const add = () => {
   form.value?.show();
+};
+
+const edit = (row: TimeJournalEntry) => {
+  form.value?.show(row);
+};
+
+const onEntrySave = async (entry: TimeJournalEntry) => {
+  if (!entry.id) {
+    entry.journal = journal.value!;
+    journal.value!.entries.push(entry);
+  }
+  await window.api.timeJournal.save(cloneDeep(journal.value!));
+  form.value?.hide();
+  void load();
 };
 </script>
