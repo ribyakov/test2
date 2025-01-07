@@ -33,7 +33,7 @@ onBeforeMount(async () => {
   </el-select>
   <div>
     <el-tabs v-model="activeTab" class="demo-tabs">
-      <el-tab-pane label="Журнал учета времени" name="first"
+      <el-tab-pane :label="$t('TimeJournal.name')" name="first"
         ><TimeJournal :segment="currentSegment"
       /></el-tab-pane>
     </el-tabs>

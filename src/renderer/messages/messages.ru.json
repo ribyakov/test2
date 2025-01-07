@@ -16,6 +16,24 @@
     "remove": "Remove",
     "refresh": "Обновить",
     "rename": "Переименовать",
-    "open": "Открыть"
+    "open": "Открыть",
+    "deleteConfirmation": "Вы уверены что хотите удалить запись?"
+  },
+  "TimeJournal": {
+    "name": "Журнал учета времени",
+    "list": {
+      "table": {
+        "column": {
+          "date": "Дата",
+          "period": "Период времени",
+          "operation": "Операция",
+          "comments": "Комментарий"
+        }
+      }
+    },
+    "editForm": {
+      "title": "Запись журнала",
+      "rangeSeparator": "по"
+    }
   }
 }

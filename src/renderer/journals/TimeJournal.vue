@@ -1,23 +1,44 @@
 <template>
-  <el-button type="primary" :icon="Plus" @click="add()">Добавить</el-button>
-  <el-table @row-click="edit" stripe :data="entries" style="width: 100%">
-    <el-table-column v-slot="{ row }" label="Date" width="180">
+  <el-button link type="primary" :icon="Plus" @click="add()">{{
+    $t("action.add")
+  }}</el-button>
+  <el-table stripe :data="entries" style="width: 100%">
+    <el-table-column
+      v-slot="{ row }"
+      :label="$t('TimeJournal.list.table.column.date')"
+      width="180"
+    >
       {{ $moment(row.startTime).format("YYYY-MM-DD") }}
     </el-table-column>
-    <el-table-column v-slot="{ row }" label="start" width="180">
-      {{ $moment(row.startTime).format("HH:mm") }}
-    </el-table-column>
-    <el-table-column v-slot="{ row }" label="start" width="180">
+    <el-table-column
+      v-slot="{ row }"
+      :label="$t('TimeJournal.list.table.column.period')"
+      width="180"
+    >
+      {{ $moment(row.startTime).format("HH:mm") }} -
       {{ $moment(row.endTime).format("HH:mm") }}
     </el-table-column>
-    <el-table-column prop="operation" label="operation" />
-    <el-table-column prop="comments" label="comment" />
+    <el-table-column
+      prop="operation"
+      :label="$t('TimeJournal.list.table.column.operation')"
+    />
+    <el-table-column
+      prop="comments"
+      :label="$t('TimeJournal.list.table.column.comments')"
+    />
+    <el-table-column fixed="right" min-width="120">
+      <template #default="{ row }">
+        <el-button link :icon="Edit" type="primary" @click="edit(row)">
+        </el-button>
+        <BaseDeletePopConfirm :confirm="() => deleteEntry(row)" />
+      </template>
+    </el-table-column>
   </el-table>
   <TimeJournalForm ref="form" @save="onEntrySave" />
 </template>
 
 <script lang="ts" setup>
-import { Plus } from "@element-plus/icons-vue";
+import { Edit, Plus } from "@element-plus/icons-vue";
 import { computed, ref, watch } from "vue";
 import TimeJournalForm from "./TimeJournalForm.vue";
 import {
@@ -26,6 +47,7 @@ import {
   VoyageTaskSegment,
 } from "../../main/entities";
 import { cloneDeep } from "lodash";
+import BaseDeletePopConfirm from "../base-components/BaseDeletePopConfirm.vue";
 
 const props = defineProps<{
   segment?: VoyageTaskSegment;
@@ -66,6 +88,14 @@ const onEntrySave = async (entry: TimeJournalEntry) => {
   }
   await window.api.timeJournal.save(cloneDeep(journal.value!));
   form.value?.hide();
+  void load();
+};
+
+const deleteEntry = async (entry: TimeJournalEntry) => {
+  journal.value!.entries = journal.value!.entries.filter(
+    (e) => e.id !== entry.id,
+  );
+  await window.api.timeJournal.save(cloneDeep(journal.value!));
   void load();
 };
 </script>

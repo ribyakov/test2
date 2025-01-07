@@ -1,9 +1,13 @@
 <template>
-  <el-dialog v-model="visible" title="Shipping address" width="500">
+  <el-dialog
+    v-model="visible"
+    :title="$t('TimeJournal.editForm.title')"
+    width="500"
+  >
     <el-form :model="form">
       <el-form-item
         required
-        label="Promotion name"
+        :label="$t('TimeJournal.list.table.column.date')"
         :label-width="formLabelWidth"
       >
         <el-date-picker
@@ -13,20 +17,31 @@
         />
       </el-form-item>
 
-      <el-form-item required label="Period" :label-width="formLabelWidth">
+      <el-form-item
+        required
+        :label="$t('TimeJournal.list.table.column.period')"
+        :label-width="formLabelWidth"
+      >
         <el-time-picker
           v-model="form.period"
           is-range
           arrow-control
-          range-separator="по"
+          :range-separator="$t('TimeJournal.editForm.rangeSeparator')"
         />
       </el-form-item>
 
-      <el-form-item required label="Zones" :label-width="formLabelWidth">
+      <el-form-item
+        required
+        :label="$t('TimeJournal.list.table.column.operation')"
+        :label-width="formLabelWidth"
+      >
       </el-form-item>
     </el-form>
 
-    <el-form-item label="Комментарий" :label-width="formLabelWidth">
+    <el-form-item
+      :label="$t('TimeJournal.list.table.column.comments')"
+      :label-width="formLabelWidth"
+    >
       <el-input
         v-model="form.comments"
         :autosize="{ minRows: 2, maxRows: 4 }"
@@ -36,8 +51,10 @@
     </el-form-item>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="hide">Cancel</el-button>
-        <el-button type="primary" @click="save"> Confirm </el-button>
+        <el-button @click="hide">{{ $t("action.cancel") }}</el-button>
+        <el-button type="primary" @click="save">
+          {{ $t("action.save") }}
+        </el-button>
       </div>
     </template>
   </el-dialog>
