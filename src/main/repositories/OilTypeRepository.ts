@@ -3,8 +3,7 @@ import { AppDataSource } from "../typeorm.config";
 
 export default class OilTypeRepository {
   public static async getAll(): Promise<OilType[]> {
-    const result = await AppDataSource.manager.find(OilType);
-    return result;
+    return await AppDataSource.manager.find(OilType);
   }
 
   public static async add(oilType: Partial<OilType>) {

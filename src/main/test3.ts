@@ -18,6 +18,7 @@ import { RouteSegmentType } from "./entities/Voyage/RouteSegmentType";
 import { TimeJournalRepository } from "./repositories/TimeJournalRepository";
 
 AppDataSource.initialize().then(async () => {
+  await AppDataSource.manager.clear(TimeJournal);
   await AppDataSource.manager.clear(VoyageTask);
   await AppDataSource.manager.clear(CheckPoint);
   await AppDataSource.manager.clear(Unit);

@@ -8,8 +8,6 @@ import {
 } from "typeorm";
 import { Tank } from "../masterdata/Tank/Tank.entity";
 import { VoyageTask } from "./VoyageTask.entity";
-import { Oil } from "../masterdata/Oil/Oil.entity";
-import { Fuel } from "../masterdata/Fuel/Fuel.entity";
 import { WaterType } from "./WaterType";
 
 @Entity()
