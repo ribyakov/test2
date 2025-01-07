@@ -4,8 +4,11 @@ import "./styles/styles.scss";
 import ElementPlus from "element-plus";
 import App from "./App.vue";
 import locale from "element-plus/es/locale/lang/de";
+import moment from "moment";
 
 const app = createApp(App);
+
+app.config.globalProperties.$moment = moment;
 
 app.use(ElementPlus, {
   locale,
