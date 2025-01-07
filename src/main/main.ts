@@ -2,8 +2,9 @@ import { app, BrowserWindow, ipcMain, session } from "electron";
 import { join } from "path";
 import "reflect-metadata";
 import { AppDataSource } from "./typeorm.config";
-import { VoyageController } from "./controllers/VoyageController";
 import IpcMain = Electron.IpcMain;
+import { VoyageController } from "./controllers/VoyageController";
+import { TimeJournalController } from "./controllers/TimeJournalController";
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -59,5 +60,10 @@ const connectApi = (ipcMain: IpcMain) => {
   ipcMain.handle("voyage/segments", async (_, id: number) => {
     const controller = new VoyageController();
     return controller.segments(id);
+  });
+
+  ipcMain.handle("timeJournal/getBySegmentId", async (_, segmentId: number) => {
+    const controller = new TimeJournalController();
+    return controller.getBySegmentId(segmentId);
   });
 };
