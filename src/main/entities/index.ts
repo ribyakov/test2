@@ -18,10 +18,14 @@ import { VoyageTaskFuelRemaining } from "./Voyage/VoyageTaskFuelRemaining.entity
 import { VoyageTaskWaterRemaining } from "./Voyage/VoyageTaskWaterRemaining.entity";
 import { VoyageTaskSegment } from "./Voyage/VoyageTaskSegment.entity";
 import { VoyageTaskCheckPoint } from "./Voyage/VoyageTaskCheckPoint.entity";
+import { TimeJournal } from "./TimeJournal/TimeJournal.entity";
+import { TimeJournalEntry } from "./TimeJournal/TimeJournalEntry.entity";
+import { TimeZone } from "./TimeZone.entity";
 
 export * from "./CargoType.entity";
 export * from "./GeographicCoordinate.entity";
 export * from "./Ship.entity";
+export * from "./TimeZone.entity";
 export * from "./Unit.entity";
 export * from "./OilType.entity";
 export * from "./OperationType.entity";
@@ -39,8 +43,12 @@ export * from "./Voyage/VoyageTaskFuelRemaining.entity";
 export * from "./Voyage/VoyageTaskWaterRemaining.entity";
 export * from "./Voyage/VoyageTaskSegment.entity";
 export * from "./Voyage/VoyageTaskCheckPoint.entity";
+export * from "./TimeJournal/TimeJournal.entity";
+export * from "./TimeJournal/TimeJournalEntry.entity";
 
 export const entities = [
+  TimeJournal,
+  TimeJournalEntry,
   VoyageTaskCheckPoint,
   VoyageTaskSegment,
   VoyageTaskWaterRemaining,
@@ -61,4 +69,5 @@ export const entities = [
   Ship,
   Unit,
   OilType,
+  TimeZone,
 ];
