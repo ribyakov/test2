@@ -6,6 +6,8 @@ import {
   OilType,
   Ship,
   StorageTank,
+  TimeJournal,
+  TimeJournalEntry,
   Unit,
   VoyageTask,
   VoyageTaskCheckPoint,
@@ -13,6 +15,7 @@ import {
 } from "./entities";
 import { VoyageTaskRepository } from "./repositories/VoyageTaskRepository";
 import { RouteSegmentType } from "./entities/RouteSegmentType";
+import { TimeJournalReposytory } from "./repositories/TimeJournalReposytory";
 
 AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.clear(VoyageTask);
@@ -176,4 +179,15 @@ AppDataSource.initialize().then(async () => {
   vs9.segmentType = RouteSegmentType.PORT;
 
   await AppDataSource.manager.save(vs9);
+
+  let timeJournal = new TimeJournal();
+  timeJournal.segment = vs1;
+
+  const tje1 = new TimeJournalEntry();
+  tje1.startTime = new Date();
+  tje1.endTime = new Date();
+
+  timeJournal.entries = [tje1];
+
+  await TimeJournalReposytory.save(timeJournal);
 });
