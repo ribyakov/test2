@@ -1,15 +1,5 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  Index,
-} from "typeorm";
-import { StorageTank } from "../StorageTank.entity";
+import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { VoyageTask } from "./VoyageTask.entity";
-import { Oil } from "../Oil.entity";
-import { Fuel } from "../Fuel.entity";
 import { CheckPoint } from "../CheckPoint.entity";
 
 @Entity()
