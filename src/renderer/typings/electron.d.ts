@@ -6,6 +6,7 @@ export default interface ElectronApi {
   };
   timeJournal: {
     getBySegmentId: (segmentId: number) => Promise<TimeJournal | null>;
+    save: (journal: TimeJournal) => Promise<void>;
   };
 }
 

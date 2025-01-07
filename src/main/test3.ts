@@ -15,7 +15,7 @@ import {
 } from "./entities";
 import { VoyageTaskRepository } from "./repositories/VoyageTaskRepository";
 import { RouteSegmentType } from "./entities/RouteSegmentType";
-import { TimeJournalReposytory } from "./repositories/TimeJournalReposytory";
+import { TimeJournalRepository } from "./repositories/TimeJournalRepository";
 
 AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.clear(VoyageTask);
@@ -189,5 +189,5 @@ AppDataSource.initialize().then(async () => {
 
   timeJournal.entries = [tje1];
 
-  await TimeJournalReposytory.save(timeJournal);
+  await TimeJournalRepository.save(timeJournal);
 });

@@ -1,10 +1,14 @@
 import { TimeJournal } from "../entities";
-import { AppDataSource } from "../typeorm.config";
+import { TimeJournalRepository } from "../repositories/TimeJournalRepository";
 
 export class TimeJournalController {
   getBySegmentId(segmentId: number): Promise<TimeJournal | null> {
-    return AppDataSource.manager.findOne(TimeJournal, {
+    return TimeJournalRepository.findOne({
       where: { segment: { id: segmentId } },
     });
+  }
+
+  async save(journal: TimeJournal): Promise<void> {
+    await TimeJournalRepository.save(journal);
   }
 }

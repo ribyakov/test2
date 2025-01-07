@@ -2,7 +2,7 @@ import { AppDataSource } from "../typeorm.config";
 import { TimeJournal } from "../entities";
 import { v4 as uuidv4 } from "uuid";
 
-export const TimeJournalReposytory = AppDataSource.getRepository(
+export const TimeJournalRepository = AppDataSource.getRepository(
   TimeJournal,
 ).extend({
   async save(journal: TimeJournal) {
@@ -17,9 +17,8 @@ export const TimeJournalReposytory = AppDataSource.getRepository(
         entry.uuid ??= uuidv4();
       }
       // execute some operations on this transaction:
-      const result = await queryRunner.manager.save(journal);
+      const result = await queryRunner.manager.save(TimeJournal, journal);
       console.log("journal saved successfully");
-      console.log(JSON.stringify(result));
 
       // commit transaction now:
       await queryRunner.commitTransaction();

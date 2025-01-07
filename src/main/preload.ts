@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
+import { TimeJournal } from "./entities";
 
 contextBridge.exposeInMainWorld("api", {
   voyage: {
@@ -7,5 +8,8 @@ contextBridge.exposeInMainWorld("api", {
   timeJournal: {
     getBySegmentId: (segmentId: number) =>
       ipcRenderer.invoke("timeJournal/getBySegmentId", segmentId),
+    save: async (journal: TimeJournal) => {
+      await ipcRenderer.invoke("timeJournal/save", journal);
+    },
   },
 });
