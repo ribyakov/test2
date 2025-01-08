@@ -1,6 +1,5 @@
 import { Oil, OilType, Operation, OperationType } from "../entities";
 import { DataSource } from "typeorm";
-import { AppDataSource } from "../typeorm.config";
 
 export async function createMasterdata(dataSource: DataSource) {
   await createOils(dataSource);

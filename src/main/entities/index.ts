@@ -21,6 +21,8 @@ import { VoyageCheckPoint } from "./voyage/VoyageCheckPoint.entity";
 import { TimeJournal } from "./time-journal/TimeJournal.entity";
 import { TimeJournalEntry } from "./time-journal/TimeJournalEntry.entity";
 import { TimeZone } from "./masterdata/TimeZone.entity";
+import { ConditionJournal } from "./condition-journal/ConditionJournal.entity";
+import { ConditionJournalGeo } from "./condition-journal/ConditionJournalGeo.entity";
 
 export * from "./masterdata/CargoType.entity";
 export * from "./GeographicCoordinate.entity";
@@ -45,8 +47,12 @@ export * from "./voyage/VoyageSegment.entity";
 export * from "./voyage/VoyageCheckPoint.entity";
 export * from "./time-journal/TimeJournal.entity";
 export * from "./time-journal/TimeJournalEntry.entity";
+export * from "./condition-journal/ConditionJournal.entity";
+export * from "./condition-journal/ConditionJournalGeo.entity";
 
 export const entities = [
+  ConditionJournal,
+  ConditionJournalGeo,
   TimeJournal,
   TimeJournalEntry,
   VoyageCheckPoint,

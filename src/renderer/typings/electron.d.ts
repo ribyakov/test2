@@ -1,5 +1,6 @@
 import { TimeJournal, VoyageSegment } from "../../main/entities";
 import { AllMasterdata } from "../../main/entities/masterdata";
+import { ConditionJournal } from "../../main/entities";
 
 export default interface ElectronApi {
   voyage: {
@@ -8,6 +9,10 @@ export default interface ElectronApi {
   timeJournal: {
     getBySegmentId: (segmentId: number) => Promise<TimeJournal | null>;
     save: (journal: TimeJournal) => Promise<void>;
+  };
+  conditionJournal: {
+    getBySegmentId: (segmentId: number) => Promise<ConditionJournal | null>;
+    save: (journal: ConditionJournal) => Promise<void>;
   };
   masterdata: {
     get: () => Promise<AllMasterdata>;

@@ -13,6 +13,13 @@ contextBridge.exposeInMainWorld("api", {
       await ipcRenderer.invoke("timeJournal/save", journal);
     },
   },
+  conditionJournal: {
+    getBySegmentId: (segmentId: number) =>
+      ipcRenderer.invoke("conditionJournal/getBySegmentId", segmentId),
+    save: async (journal: TimeJournal) => {
+      await ipcRenderer.invoke("conditionJournal/save", journal);
+    },
+  },
   masterdata: {
     get: async (): Promise<AllMasterdata> =>
       ipcRenderer.invoke("masterdata/get"),

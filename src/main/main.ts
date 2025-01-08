@@ -7,6 +7,7 @@ import { VoyageController } from "./controllers/VoyageController";
 import { TimeJournalController } from "./controllers/TimeJournalController";
 import { TimeJournal } from "./entities";
 import { MasterdataController } from "./controllers/MasterdataController";
+import { ConditionJournalController } from "./controllers/ConditionJournalController";
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -73,6 +74,14 @@ const connectApi = (ipcMain: IpcMain) => {
     const controller = new TimeJournalController();
     return controller.save(journal);
   });
+
+  ipcMain.handle(
+    "conditionJournal/getBySegmentId",
+    async (_, segmentId: number) => {
+      const controller = new ConditionJournalController();
+      return controller.getBySegmentId(segmentId);
+    },
+  );
 
   ipcMain.handle("masterdata/get", async () => {
     const controller = new MasterdataController();

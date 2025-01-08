@@ -1,6 +1,6 @@
-import { AppDataSource } from "../typeorm.config";
 import {
   CheckPoint,
+  ConditionJournal,
   GeographicCoordinate,
   Oil,
   Operation,
@@ -14,6 +14,7 @@ import {
 import { DataSource } from "typeorm";
 
 export async function clear(dataSource: DataSource) {
+  await dataSource.manager.clear(ConditionJournal);
   await dataSource.manager.clear(TimeJournal);
   await dataSource.manager.clear(Voyage);
   await dataSource.manager.clear(CheckPoint);

@@ -1,4 +1,3 @@
-import { AppDataSource } from "../typeorm.config";
 import {
   CheckPoint,
   GeographicCoordinate,
@@ -12,11 +11,12 @@ import { VoyageTaskRepository } from "../repositories/VoyageTaskRepository";
 import { RouteSegmentType } from "../entities/voyage/RouteSegmentType";
 import { TimeJournalRepository } from "../repositories/TimeJournalRepository";
 import { DataSource } from "typeorm";
+import { ConditionJournal } from "../entities";
 
 export async function createVoyage(dataSource: DataSource) {
   let ship = new Ship();
   ship.name = "ПОЗЫВНОЙ СУДНА";
-  ship = await AppDataSource.manager.save(ship);
+  ship = await dataSource.manager.save(ship);
 
   let geo = new GeographicCoordinate(); //  47°  3'  1.35";  142°  2' 40.85"
   geo.latDegrees = 47;
@@ -27,7 +27,7 @@ export async function createVoyage(dataSource: DataSource) {
   geo.lonSeconds = 40.85;
   geo.hash = "4BC807A40B5CAB5F81DF8EC17A6BDFFD";
 
-  geo = await AppDataSource.manager.save(geo);
+  geo = await dataSource.manager.save(geo);
 
   let point1 = new CheckPoint();
   point1.name = "Холмский морской торговый порт";
@@ -37,8 +37,8 @@ export async function createVoyage(dataSource: DataSource) {
   point2.name = "Пункт-порт 2";
   point2.geoPoint = geo;
 
-  point1 = await AppDataSource.manager.save(point1);
-  point2 = await AppDataSource.manager.save(point2);
+  point1 = await dataSource.manager.save(point1);
+  point2 = await dataSource.manager.save(point2);
 
   let voyage = new Voyage();
   voyage.charter = true;
@@ -74,7 +74,7 @@ export async function createVoyage(dataSource: DataSource) {
   vs1.order = 1;
   vs1.segmentType = RouteSegmentType.PORT;
 
-  await AppDataSource.manager.save(vs1);
+  await dataSource.manager.save(vs1);
 
   let vs2 = new VoyageSegment();
   vs2.voyage = voyage;
@@ -84,7 +84,7 @@ export async function createVoyage(dataSource: DataSource) {
   vs2.order = 2;
   vs2.segmentType = RouteSegmentType.DEPARTURE;
 
-  await AppDataSource.manager.save(vs2);
+  await dataSource.manager.save(vs2);
 
   let vs3 = new VoyageSegment();
   vs3.voyage = voyage;
@@ -94,7 +94,7 @@ export async function createVoyage(dataSource: DataSource) {
   vs3.order = 3;
   vs3.segmentType = RouteSegmentType.SEA;
 
-  await AppDataSource.manager.save(vs3);
+  await dataSource.manager.save(vs3);
 
   let vs4 = new VoyageSegment();
   vs4.voyage = voyage;
@@ -104,7 +104,7 @@ export async function createVoyage(dataSource: DataSource) {
   vs4.order = 4;
   vs4.segmentType = RouteSegmentType.ARRIVAL;
 
-  await AppDataSource.manager.save(vs4);
+  await dataSource.manager.save(vs4);
 
   let vs5 = new VoyageSegment();
   vs5.voyage = voyage;
@@ -115,7 +115,7 @@ export async function createVoyage(dataSource: DataSource) {
   vs5.order = 5;
   vs5.segmentType = RouteSegmentType.PORT;
 
-  await AppDataSource.manager.save(vs5);
+  await dataSource.manager.save(vs5);
 
   let vs6 = new VoyageSegment();
   vs6.voyage = voyage;
@@ -125,7 +125,7 @@ export async function createVoyage(dataSource: DataSource) {
   vs6.order = 6;
   vs6.segmentType = RouteSegmentType.DEPARTURE;
 
-  await AppDataSource.manager.save(vs6);
+  await dataSource.manager.save(vs6);
 
   let vs7 = new VoyageSegment();
   vs7.voyage = voyage;
@@ -135,7 +135,7 @@ export async function createVoyage(dataSource: DataSource) {
   vs7.order = 7;
   vs7.segmentType = RouteSegmentType.SEA;
 
-  await AppDataSource.manager.save(vs7);
+  await dataSource.manager.save(vs7);
 
   let vs8 = new VoyageSegment();
   vs8.voyage = voyage;
@@ -145,7 +145,7 @@ export async function createVoyage(dataSource: DataSource) {
   vs8.order = 8;
   vs8.segmentType = RouteSegmentType.ARRIVAL;
 
-  await AppDataSource.manager.save(vs8);
+  await dataSource.manager.save(vs8);
 
   let vs9 = new VoyageSegment();
   vs9.voyage = voyage;
@@ -155,11 +155,17 @@ export async function createVoyage(dataSource: DataSource) {
   vs9.order = 9;
   vs9.segmentType = RouteSegmentType.PORT;
 
-  await AppDataSource.manager.save(vs9);
+  await dataSource.manager.save(vs9);
 
   // create time journal
   let timeJournal = new TimeJournal();
   timeJournal.segment = vs1;
+
+  await TimeJournalRepository.save(timeJournal);
+
+  // create condition journal
+  let conditionJournal = new ConditionJournal();
+  conditionJournal.segment = vs1;
 
   await TimeJournalRepository.save(timeJournal);
 }
