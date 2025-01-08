@@ -36,5 +36,8 @@
       "title": "Запись журнала",
       "rangeSeparator": "по"
     }
+  },
+  "ConditionJournal": {
+    "name": "Журнал учета показателей судна"
   }
 }
