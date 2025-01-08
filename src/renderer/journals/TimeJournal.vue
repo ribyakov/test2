@@ -90,13 +90,14 @@ const edit = (row: TimeJournalEntry) => {
 };
 
 const onEntrySave = async (entry: TimeJournalEntry) => {
-  if (!entry.id) {
-    entry.journal = journal.value!;
-    journal.value!.entries.push(entry);
-  }
-  await window.api.timeJournal.save(cloneDeep(journal.value!));
-  form.value?.hide();
-  void load();
+  console.log(journal.value);
+  // if (!entry.id) {
+  //   entry.journal = journal.value!;
+  //   journal.value!.entries.push(entry);
+  // }
+  // await window.api.timeJournal.save(cloneDeep(journal.value!));
+  // form.value?.hide();
+  // void load();
 };
 
 const deleteEntry = async (entry: TimeJournalEntry) => {

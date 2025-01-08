@@ -13,7 +13,7 @@ export const TimeJournalRepository = AppDataSource.getRepository(
 
     try {
       // generate uuid for new entries
-      for (const entry of journal.entries) {
+      for (const entry of journal.entries ?? []) {
         entry.uuid ??= uuidv4();
       }
       // execute some operations on this transaction:

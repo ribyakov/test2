@@ -1,4 +1,4 @@
-import { AppDataSource } from "./typeorm.config";
+import { AppDataSource } from "../typeorm.config";
 import {
   CheckPoint,
   GeographicCoordinate,
@@ -10,9 +10,9 @@ import {
   Voyage,
   VoyageOilRemaining,
   VoyageStorageTankFunction,
-} from "./entities";
-import { VoyageTaskRepository } from "./repositories/VoyageTaskRepository";
-import { TankFunction } from "./entities/masterdata/Tank/TankFunction";
+} from "../entities";
+import { VoyageTaskRepository } from "../repositories/VoyageTaskRepository";
+import { TankFunction } from "../entities/masterdata/Tank/TankFunction";
 
 AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.clear(Voyage);

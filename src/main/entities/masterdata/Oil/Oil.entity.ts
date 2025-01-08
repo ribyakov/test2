@@ -2,7 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { OilType } from "./OilType.entity";
@@ -15,10 +15,10 @@ export class Oil {
   @Column()
   name: string;
 
-  @OneToOne(() => OilType)
+  @ManyToOne(() => OilType)
   @JoinColumn()
   type: OilType;
 
-  @Column()
+  @Column({ nullable: true })
   features: string;
 }

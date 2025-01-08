@@ -21,7 +21,6 @@ export const useMasterdata = defineStore("MasterData", () => {
 
   const getOperationTypeById = (id: number): OperationType => {
     const t = operationTypes.value.find((v) => v.id === id)!;
-    console.log(t, id);
     return t;
   };
 

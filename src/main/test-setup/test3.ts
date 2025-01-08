@@ -1,4 +1,4 @@
-import { AppDataSource } from "./typeorm.config";
+import { AppDataSource } from "../typeorm.config";
 import {
   CheckPoint,
   GeographicCoordinate,
@@ -14,10 +14,10 @@ import {
   Voyage,
   VoyageCheckPoint,
   VoyageSegment,
-} from "./entities";
-import { VoyageTaskRepository } from "./repositories/VoyageTaskRepository";
-import { RouteSegmentType } from "./entities/voyage/RouteSegmentType";
-import { TimeJournalRepository } from "./repositories/TimeJournalRepository";
+} from "../entities";
+import { VoyageTaskRepository } from "../repositories/VoyageTaskRepository";
+import { RouteSegmentType } from "../entities/voyage/RouteSegmentType";
+import { TimeJournalRepository } from "../repositories/TimeJournalRepository";
 
 AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.clear(TimeJournal);

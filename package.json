@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node scripts/dev-server.js",
     "build": "node scripts/build.js && electron-builder",
-    "test": "node scripts/build.js && node build/main/test3.js",
+    "test": "node scripts/build.js && node build/main/test-setup/setup.js",
     "build:win": "node scripts/build.js && electron-builder --win",
     "build:mac": "node scripts/build.js && electron-builder --mac",
     "build:linux": "node scripts/build.js && electron-builder --linux",

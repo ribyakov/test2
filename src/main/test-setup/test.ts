@@ -1,5 +1,5 @@
-import { AppDataSource } from "./typeorm.config";
-import { OilType, Unit } from "./entities";
+import { AppDataSource } from "../typeorm.config";
+import { OilType, Unit } from "../entities";
 
 AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.clear(Unit);
