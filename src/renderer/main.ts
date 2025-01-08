@@ -7,6 +7,7 @@ import moment from "moment";
 import { createPinia } from "pinia";
 import { createI18n } from "vue-i18n";
 import messagesRu from "./messages/messages.ru.json";
+import { useMasterdata } from "./store/useMasterdata";
 
 const i18n = createI18n({
   globalInjection: true,
@@ -25,3 +26,4 @@ app.use(ElementPlus);
 app.use(i18n);
 app.use(pinia);
 app.mount("#app");
+void useMasterdata().get();

@@ -4,6 +4,8 @@ import {
   GeographicCoordinate,
   Oil,
   OilType,
+  Operation,
+  OperationType,
   Ship,
   Tank,
   TimeJournal,
@@ -26,6 +28,8 @@ AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.clear(Oil);
   await AppDataSource.manager.clear(GeographicCoordinate);
   await AppDataSource.manager.clear(Tank);
+  await AppDataSource.manager.clear(Operation);
+  await AppDataSource.manager.clear(OperationType);
 
   let unit1 = new Unit();
   unit1.name = "Unit1";
@@ -87,6 +91,21 @@ AppDataSource.initialize().then(async () => {
   voyage.checkPoints = [voyagePoint1, voyagePoint2, voyagePoint3];
 
   voyage = await VoyageTaskRepository.save(voyage);
+
+  // create operations
+  let operationType1 = new OperationType();
+  operationType1.name = "ПРР";
+  await AppDataSource.manager.save(operationType1);
+
+  let operation1 = new Operation();
+  operation1.name = "Погрузка";
+  operation1.type = operationType1;
+  await AppDataSource.manager.save(operation1);
+
+  let operation2 = new Operation();
+  operation2.name = "Разгрузка";
+  operation2.type = operationType1;
+  await AppDataSource.manager.save(operation2);
 
   // create voyage segments
   let vs1 = new VoyageTaskSegment();
@@ -187,6 +206,7 @@ AppDataSource.initialize().then(async () => {
   const tje1 = new TimeJournalEntry();
   tje1.startTime = new Date();
   tje1.endTime = new Date();
+  tje1.operation = operation1;
 
   timeJournal.entries = [tje1];
 

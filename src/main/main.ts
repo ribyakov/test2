@@ -6,6 +6,7 @@ import IpcMain = Electron.IpcMain;
 import { VoyageController } from "./controllers/VoyageController";
 import { TimeJournalController } from "./controllers/TimeJournalController";
 import { TimeJournal } from "./entities";
+import { MasterdataController } from "./controllers/MasterdataController";
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -71,5 +72,10 @@ const connectApi = (ipcMain: IpcMain) => {
   ipcMain.handle("timeJournal/save", async (_, journal: TimeJournal) => {
     const controller = new TimeJournalController();
     return controller.save(journal);
+  });
+
+  ipcMain.handle("masterdata/get", async () => {
+    const controller = new MasterdataController();
+    return controller.get();
   });
 };

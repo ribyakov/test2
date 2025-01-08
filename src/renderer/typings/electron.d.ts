@@ -1,4 +1,5 @@
 import { TimeJournal, VoyageTaskSegment } from "../../main/entities";
+import { AllMasterdata } from "../../main/entities/masterdata";
 
 export default interface ElectronApi {
   voyage: {
@@ -7,6 +8,9 @@ export default interface ElectronApi {
   timeJournal: {
     getBySegmentId: (segmentId: number) => Promise<TimeJournal | null>;
     save: (journal: TimeJournal) => Promise<void>;
+  };
+  masterdata: {
+    get: () => Promise<AllMasterdata>;
   };
 }
 

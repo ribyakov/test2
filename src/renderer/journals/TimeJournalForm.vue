@@ -35,6 +35,25 @@
         :label="$t('TimeJournal.list.table.column.operation')"
         :label-width="formLabelWidth"
       >
+        <el-select
+          v-model="form.operation"
+          size="large"
+          style="width: 240px"
+          value-key="id"
+        >
+          <el-option-group
+            v-for="group in operationList"
+            :key="group.type.id"
+            :label="group.type.name"
+          >
+            <el-option
+              v-for="item in group.list"
+              :key="item.id"
+              :label="item.name"
+              :value="item"
+            />
+          </el-option-group>
+        </el-select>
       </el-form-item>
     </el-form>
 
@@ -61,18 +80,33 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
-import { TimeJournalEntry } from "../../main/entities";
+import { computed, reactive, ref } from "vue";
+import { Operation, TimeJournalEntry } from "../../main/entities";
 import moment from "moment";
+import { useMasterdata } from "../store/useMasterdata";
+import { storeToRefs } from "pinia";
+import _ from "lodash";
 
 type Form = {
   date: Date;
   period: [Date, Date];
   comments: string | null;
-  operation: null;
+  operation: Operation;
 };
 
 const visible = ref(false);
+const { getOperationTypeById } = useMasterdata();
+const { operations } = storeToRefs(useMasterdata());
+const operationList = computed(() => {
+  return (
+    _.chain(operations.value)
+      // Group the elements of Array based on `color` property
+      .groupBy((i) => i.type.id)
+      // `key` is group's name (color), `value` is the array of objects
+      .map((value, key) => ({ type: getOperationTypeById(+key), list: value }))
+      .value()
+  );
+});
 
 type NullableProperties<T> = {
   [K in keyof T]: T[K] | null;
@@ -98,7 +132,7 @@ const form = reactive<Form>({
   date: new Date(0, 0, 0, 0, 0),
   period: [new Date(0, 0, 0, 0, 0), new Date(0, 0, 0, 0, 0)],
   comments: "",
-  operation: null,
+  operation: { id: null } as unknown as Operation,
 });
 
 const show = (entry?: TimeJournalEntry) => {
@@ -122,6 +156,8 @@ const show = (entry?: TimeJournalEntry) => {
 
   form.date = new Date(date.year(), date.month(), date.date());
   form.comments = currentEntry.comments;
+  form.operation = currentEntry.operation!;
+
   visible.value = true;
 };
 

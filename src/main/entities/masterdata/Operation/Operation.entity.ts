@@ -2,7 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { OperationType } from "./OperationType.entity";
@@ -15,10 +15,10 @@ export class Operation {
   @Column()
   name: string;
 
-  @OneToOne(() => OperationType)
+  @ManyToOne(() => OperationType, { eager: true })
   @JoinColumn()
   type: OperationType;
 
-  @Column()
+  @Column({ nullable: true })
   features: string;
 }

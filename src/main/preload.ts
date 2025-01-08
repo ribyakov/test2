@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { TimeJournal } from "./entities";
+import { AllMasterdata } from "./entities/masterdata";
 
 contextBridge.exposeInMainWorld("api", {
   voyage: {
@@ -11,5 +12,9 @@ contextBridge.exposeInMainWorld("api", {
     save: async (journal: TimeJournal) => {
       await ipcRenderer.invoke("timeJournal/save", journal);
     },
+  },
+  masterdata: {
+    get: async (): Promise<AllMasterdata> =>
+      ipcRenderer.invoke("masterdata/get"),
   },
 });

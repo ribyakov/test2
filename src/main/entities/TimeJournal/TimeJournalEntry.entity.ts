@@ -13,7 +13,7 @@ export class TimeJournalEntry {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Operation)
+  @ManyToOne(() => Operation, { eager: true })
   @JoinColumn()
   operation: Operation;
 

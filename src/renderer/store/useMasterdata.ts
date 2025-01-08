@@ -1,5 +1,5 @@
-import { defineStore, storeToRefs } from "pinia";
-import { computed, ref } from "vue";
+import { defineStore } from "pinia";
+import { ref } from "vue";
 import {
   Fuel,
   FuelType,
@@ -19,12 +19,24 @@ export const useMasterdata = defineStore("MasterData", () => {
   const oils = ref<Oil[]>([]);
   const oilTypes = ref<OilType[]>([]);
 
+  const getOperationTypeById = (id: number): OperationType => {
+    const t = operationTypes.value.find((v) => v.id === id)!;
+    console.log(t, id);
+    return t;
+  };
+
   /**
    * Update (fetch) the organization list.
    */
-  // const get = async () => (organizations.value = await getAll());
+  const get = async () => {
+    const result = await window.api.masterdata.get();
+    operations.value = result.operations;
+    operationTypes.value = result.operationTypes;
+  };
 
   return {
     operations,
+    getOperationTypeById,
+    get,
   };
 });

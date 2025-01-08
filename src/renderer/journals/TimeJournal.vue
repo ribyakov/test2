@@ -19,9 +19,17 @@
       {{ $moment(row.endTime).format("HH:mm") }}
     </el-table-column>
     <el-table-column
-      prop="operation"
+      v-slot="{ row }"
       :label="$t('TimeJournal.list.table.column.operation')"
-    />
+    >
+      {{ row.operation.name }}
+    </el-table-column>
+    <el-table-column
+      v-slot="{ row }"
+      :label="$t('TimeJournal.list.table.column.operationType')"
+    >
+      {{ row.operation.type.name }}
+    </el-table-column>
     <el-table-column
       prop="comments"
       :label="$t('TimeJournal.list.table.column.comments')"
