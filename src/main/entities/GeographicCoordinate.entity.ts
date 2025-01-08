@@ -1,9 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, Index } from "typeorm";
 
 @Entity()
 export class GeographicCoordinate {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  name: string;
+
+  @Column()
+  masked: string;
 
   @Column()
   latDegrees: number;
@@ -23,6 +29,7 @@ export class GeographicCoordinate {
   @Column()
   lonSeconds: number;
 
+  @Index({ unique: true })
   @Column()
   hash: string;
 }

@@ -1,7 +1,9 @@
 import {
   CheckPoint,
-  GeographicCoordinate,
+  ConditionJournalGeo,
+  ConditionJournalIndicator,
   Ship,
+  ShipConditionIndicator,
   TimeJournal,
   Voyage,
   VoyageCheckPoint,
@@ -12,22 +14,18 @@ import { RouteSegmentType } from "../entities/voyage/RouteSegmentType";
 import { TimeJournalRepository } from "../repositories/TimeJournalRepository";
 import { DataSource } from "typeorm";
 import { ConditionJournal } from "../entities";
+import { ConditionJournalRepository } from "../repositories/ConditionJournalRepository";
+import { GeographicCoordinateRepository } from "../repositories/GeographicCoordinateRepository";
+import { AppDataSource } from "../typeorm.config";
 
 export async function createVoyage(dataSource: DataSource) {
   let ship = new Ship();
   ship.name = "ПОЗЫВНОЙ СУДНА";
   ship = await dataSource.manager.save(ship);
 
-  let geo = new GeographicCoordinate(); //  47°  3'  1.35";  142°  2' 40.85"
-  geo.latDegrees = 47;
-  geo.latMinutes = 3;
-  geo.latSeconds = 1.35;
-  geo.lonDegrees = 142;
-  geo.lonMinutes = 2;
-  geo.lonSeconds = 40.85;
-  geo.hash = "4BC807A40B5CAB5F81DF8EC17A6BDFFD";
-
-  geo = await dataSource.manager.save(geo);
+  let geo = await GeographicCoordinateRepository.getOrCreate(
+    "12:12:12:N:123:12:12:W",
+  );
 
   let point1 = new CheckPoint();
   point1.name = "Холмский морской торговый порт";
@@ -167,5 +165,28 @@ export async function createVoyage(dataSource: DataSource) {
   let conditionJournal = new ConditionJournal();
   conditionJournal.segment = vs1;
 
-  await TimeJournalRepository.save(timeJournal);
+  const cjp1 = new ConditionJournalGeo();
+  cjp1.coordinate = "12:12:12.12:N:124:24:24.24:W";
+  cjp1.date = new Date();
+
+  const cjp2 = new ConditionJournalGeo();
+  cjp2.coordinate = "12:12:12.12:S:124:24:24.24:E";
+  cjp2.date = new Date();
+
+  conditionJournal.points = [cjp1, cjp2];
+
+  const cji1 = new ConditionJournalIndicator();
+  cji1.indicator = (await AppDataSource.manager.findOne(
+    ShipConditionIndicator,
+    {
+      where: {
+        name: "Курс судна",
+      },
+    },
+  )) as ShipConditionIndicator;
+  cji1.value = 999.999;
+
+  cjp1.indicators = [cji1];
+
+  await ConditionJournalRepository.save(conditionJournal);
 }

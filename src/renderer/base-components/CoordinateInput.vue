@@ -15,20 +15,39 @@
 <script setup lang="ts">
 import { useIMask } from "vue-imask";
 import { createMask } from "./createMask";
-import { parseDMS, normalizeInput, validateDMS } from "./utils";
+import { normalizeInput, validateDMS } from "../../main/utils/coordinate/utils";
+import { watch } from "vue";
+
+const value = defineModel<string>({ default: "" });
 
 const { el, masked, unmasked } = useIMask(
   {
-    mask: createMask(),
+    mask: createMask({ dmsPrecision: 2 }),
   },
   {
-    onComplete: (...args) => {
-      console.log(...args, masked.value);
+    onAccept: () => {
+      const normalized = normalizeInput(masked.value);
+      emit("complete", normalized);
+    },
+    onComplete: () => {
       const normalized = normalizeInput(masked.value);
       const isValid = validateDMS(normalized);
-      const dms = parseDMS(normalized);
-      console.log(dms);
+      if (!isValid) return;
+      emit("complete", normalized, masked.value);
     },
   },
 );
+
+watch(
+  value,
+  () => {
+    unmasked.value = value.value;
+  },
+  { immediate: true },
+);
+
+const emit = defineEmits<{
+  (e: "complete", normalized: string, masked: string): void;
+  (e: "reset"): void;
+}>();
 </script>

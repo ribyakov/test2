@@ -5,7 +5,7 @@ import { AppDataSource } from "./typeorm.config";
 import IpcMain = Electron.IpcMain;
 import { VoyageController } from "./controllers/VoyageController";
 import { TimeJournalController } from "./controllers/TimeJournalController";
-import { TimeJournal } from "./entities";
+import { ConditionJournal, TimeJournal } from "./entities";
 import { MasterdataController } from "./controllers/MasterdataController";
 import { ConditionJournalController } from "./controllers/ConditionJournalController";
 
@@ -80,6 +80,14 @@ const connectApi = (ipcMain: IpcMain) => {
     async (_, segmentId: number) => {
       const controller = new ConditionJournalController();
       return controller.getBySegmentId(segmentId);
+    },
+  );
+
+  ipcMain.handle(
+    "conditionJournal/save",
+    async (_, journal: ConditionJournal) => {
+      const controller = new ConditionJournalController();
+      return controller.save(journal);
     },
   );
 

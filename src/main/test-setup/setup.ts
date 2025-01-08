@@ -6,8 +6,8 @@ import { createMasterdata } from "./create-masterdata";
 async function setup() {
   const source = await AppDataSource.initialize();
   await clear(source);
-  await createVoyage(source);
   await createMasterdata(source);
+  await createVoyage(source);
 }
 
 void setup();

@@ -7,11 +7,13 @@ export default interface ElectronApi {
     segments: (id: number) => Promise<VoyageSegment[]>;
   };
   timeJournal: {
-    getBySegmentId: (segmentId: number) => Promise<TimeJournal | null>;
+    getBySegmentId: (segmentId: number) => Promise<TimeJournal | undefined>;
     save: (journal: TimeJournal) => Promise<void>;
   };
   conditionJournal: {
-    getBySegmentId: (segmentId: number) => Promise<ConditionJournal | null>;
+    getBySegmentId: (
+      segmentId: number,
+    ) => Promise<ConditionJournal | undefined>;
     save: (journal: ConditionJournal) => Promise<void>;
   };
   masterdata: {

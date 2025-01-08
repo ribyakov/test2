@@ -2,9 +2,17 @@
   <el-button link type="primary" :icon="Plus" @click="add()">{{
     $t("action.add")
   }}</el-button>
-  <el-table stripe :data="entries" style="width: 100%">
+  <el-table
+    :data="entries"
+    :default-sort="{ prop: 'startTime', order: 'ascending' }"
+    class="hover"
+    stripe
+    style="width: 100%"
+  >
     <el-table-column
       v-slot="{ row }"
+      prop="startTime"
+      sortable
       :label="$t('TimeJournal.list.table.column.date')"
       width="180"
     >
@@ -42,7 +50,7 @@
       </template>
     </el-table-column>
   </el-table>
-  <TimeJournalForm ref="form" @save="onEntrySave" />
+  <TimeJournalForm ref="form" @save="onItemSave" />
 </template>
 
 <script lang="ts" setup>
@@ -89,7 +97,7 @@ const edit = (row: TimeJournalEntry) => {
   form.value?.show(row);
 };
 
-const onEntrySave = async (entry: TimeJournalEntry) => {
+const onItemSave = async (entry: TimeJournalEntry) => {
   if (!Array.isArray(journal.value!.entries)) {
     journal.value!.entries = [];
   }

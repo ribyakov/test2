@@ -2,10 +2,16 @@
 import { onBeforeMount, ref } from "vue";
 import { VoyageSegment } from "../main/entities";
 import TimeJournal from "./journals/TimeJournal.vue";
+import ConditionJournal from "./journals/ConditionJournal.vue";
+
+enum Tabs {
+  TIME_JOURNAL = "TIME_JOURNAL",
+  CONDITION_JOURNAL = "CONDITION_JOURNAL",
+}
 
 const currentSegment = ref<VoyageSegment>();
 const segments = ref<VoyageSegment[]>([]);
-const activeTab = ref<string>("first");
+const activeTab = ref<Tabs>(Tabs.CONDITION_JOURNAL);
 
 const fetchVoyageSegments = async (id: number) => {
   segments.value = await window.api.voyage.segments(id);
@@ -33,8 +39,14 @@ onBeforeMount(async () => {
   </el-select>
   <div>
     <el-tabs v-model="activeTab" class="demo-tabs">
-      <el-tab-pane :label="$t('TimeJournal.name')" name="first"
-        ><TimeJournal :segment="currentSegment"
+      <el-tab-pane :label="$t('TimeJournal.name')" :name="Tabs.TIME_JOURNAL">
+        <TimeJournal :segment="currentSegment"
+      /></el-tab-pane>
+      <el-tab-pane
+        :label="$t('ConditionJournal.name')"
+        :name="Tabs.CONDITION_JOURNAL"
+      >
+        <ConditionJournal :segment="currentSegment"
       /></el-tab-pane>
     </el-tabs>
   </div>

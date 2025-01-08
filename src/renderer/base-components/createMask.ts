@@ -10,8 +10,8 @@ import {
   PLACEHOLDER_CHAR,
   SECOND_CHAR,
   SPACER_CHAR,
-} from "./constants";
-import { fill } from "./utils";
+} from "../../main/utils/coordinate/constants";
+import { fill } from "../../main/utils/coordinate/utils";
 
 /**
  * If latitude degrees is 90 or longitude degrees is 180

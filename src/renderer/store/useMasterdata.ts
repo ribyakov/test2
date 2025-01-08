@@ -7,11 +7,17 @@ import {
   OilType,
   Operation,
   OperationType,
+  ShipConditionIndicator,
+  Unit,
 } from "../../main/entities";
 
 export const useMasterdata = defineStore("MasterData", () => {
   const operations = ref<Operation[]>([]);
   const operationTypes = ref<OperationType[]>([]);
+
+  const units = ref<Unit[]>([]);
+
+  const shipConditionIndicators = ref<ShipConditionIndicator[]>([]);
 
   const fuels = ref<Fuel[]>([]);
   const fuelTypes = ref<FuelType[]>([]);
@@ -20,22 +26,26 @@ export const useMasterdata = defineStore("MasterData", () => {
   const oilTypes = ref<OilType[]>([]);
 
   const getOperationTypeById = (id: number): OperationType => {
-    const t = operationTypes.value.find((v) => v.id === id)!;
-    return t;
+    return operationTypes.value.find((v) => v.id === id)!;
   };
 
   /**
-   * Update (fetch) the organization list.
+   * Update (fetch) the master data.
    */
   const get = async () => {
     const result = await window.api.masterdata.get();
     operations.value = result.operations;
     operationTypes.value = result.operationTypes;
+    units.value = result.units;
+    shipConditionIndicators.value = result.shipConditionIndicators;
+
+    console.log("masterdata", result);
   };
 
   return {
     operations,
     getOperationTypeById,
+    shipConditionIndicators,
     get,
   };
 });

@@ -1,9 +1,43 @@
-import { Oil, OilType, Operation, OperationType } from "../entities";
+import {
+  Oil,
+  OilType,
+  Operation,
+  OperationType,
+  ShipConditionIndicator,
+  Unit,
+} from "../entities";
 import { DataSource } from "typeorm";
 
 export async function createMasterdata(dataSource: DataSource) {
   await createOils(dataSource);
   await createOperations(dataSource);
+  await createIndicators(dataSource);
+}
+
+async function createIndicators(dataSource: DataSource) {
+  const unit1 = new Unit();
+  unit1.name = "л";
+
+  const unit2 = new Unit();
+  unit2.name = "т";
+
+  await dataSource.manager.save(unit1);
+  await dataSource.manager.save(unit2);
+
+  const indicator1 = new ShipConditionIndicator();
+  indicator1.name = "Курс судна";
+  indicator1.unit = unit1;
+  await dataSource.manager.save(indicator1);
+
+  const indicator2 = new ShipConditionIndicator();
+  indicator2.name = "Расход воды в сутки";
+  indicator2.unit = unit1;
+  await dataSource.manager.save(indicator2);
+
+  const indicator3 = new ShipConditionIndicator();
+  indicator3.name = "Средняя скорость за рейс";
+  indicator3.unit = unit1;
+  await dataSource.manager.save(indicator3);
 }
 
 async function createOperations(dataSource: DataSource) {

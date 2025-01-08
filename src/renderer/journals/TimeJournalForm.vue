@@ -9,6 +9,7 @@
         required
         :label="$t('TimeJournal.list.table.column.date')"
         :label-width="formLabelWidth"
+        :error="v$.date.$error ? $t('common.mandatory') : undefined"
       >
         <el-date-picker
           v-model="form.date"
@@ -21,6 +22,7 @@
         required
         :label="$t('TimeJournal.list.table.column.period')"
         :label-width="formLabelWidth"
+        :error="v$.period.$error ? $t('common.mandatory') : undefined"
       >
         <el-time-picker
           v-model="form.period"
@@ -34,6 +36,7 @@
         required
         :label="$t('TimeJournal.list.table.column.operation')"
         :label-width="formLabelWidth"
+        :error="v$.operation.$error ? $t('common.mandatory') : undefined"
       >
         <el-select
           v-model="form.operation"
@@ -55,19 +58,20 @@
           </el-option-group>
         </el-select>
       </el-form-item>
+
+      <el-form-item
+        :label="$t('TimeJournal.list.table.column.comments')"
+        :label-width="formLabelWidth"
+      >
+        <el-input
+          v-model="form.comments"
+          :autosize="{ minRows: 2, maxRows: 4 }"
+          type="textarea"
+          placeholder="Комментарий"
+        />
+      </el-form-item>
     </el-form>
 
-    <el-form-item
-      :label="$t('TimeJournal.list.table.column.comments')"
-      :label-width="formLabelWidth"
-    >
-      <el-input
-        v-model="form.comments"
-        :autosize="{ minRows: 2, maxRows: 4 }"
-        type="textarea"
-        placeholder="Комментарий"
-      />
-    </el-form-item>
     <template #footer>
       <div class="dialog-footer">
         <el-button @click="hide">{{ $t("action.cancel") }}</el-button>
@@ -86,12 +90,22 @@ import moment from "moment";
 import { useMasterdata } from "../store/useMasterdata";
 import { storeToRefs } from "pinia";
 import _ from "lodash";
+import { required } from "@vuelidate/validators";
+import useVuelidate from "@vuelidate/core";
 
 type Form = {
   date: Date;
   period: [Date, Date];
   comments: string | null;
   operation: Operation;
+};
+
+const rules = {
+  date: { required },
+  period: { required },
+  operation: {
+    id: { required },
+  },
 };
 
 const visible = ref(false);
@@ -135,8 +149,11 @@ const form = reactive<Form>({
   operation: { id: null } as unknown as Operation,
 });
 
+const v$ = useVuelidate<Form>(rules, form);
+
 const show = (entry?: TimeJournalEntry) => {
   let date = moment();
+  v$.value.$reset();
 
   if (entry) {
     currentEntry = entry;
@@ -166,6 +183,9 @@ const hide = () => {
 };
 
 const save = () => {
+  v$.value.$touch();
+  if (v$.value.$invalid) return;
+
   currentEntry.operation = form.operation;
   currentEntry.comments = form.comments;
 

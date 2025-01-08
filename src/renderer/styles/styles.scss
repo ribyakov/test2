@@ -1,9 +1,36 @@
 // styles/element/index.scss
 /* just override what you need */
+$--colors: (
+        "black": #171717,
+        "primary": (
+                "base": #005fcc,
+        ),
+        "success": (
+                "base": #099731,
+        ),
+        "warning": (
+                "base": #fabb00,
+        ),
+        "danger": (
+                "base": #c71313,
+        ),
+        "error": (
+                "base": #c71313,
+        ),
+        "info": (
+                "base": #909399,
+        ),
+);
+$--text-colors: (
+        "primary": #171717,
+        "regular": #454545,
+        "secondary": #747474,
+        "placeholder": #c0c4cc,
+        "disabled": #c8c9cc,
+);
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
-  $colors: (
-
-  ),
+  $colors: $--colors,
+  $text-color: $--text-colors,
 );
 
 // If you just import on demand, you can ignore the following content.

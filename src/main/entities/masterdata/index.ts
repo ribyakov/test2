@@ -1,7 +1,13 @@
-import { Operation } from "./Operation/Operation.entity";
-import { OperationType } from "./Operation/OperationType.entity";
+import {
+  Operation,
+  OperationType,
+  Unit,
+  ShipConditionIndicator,
+} from "./../../entities";
 
 export type AllMasterdata = {
   operations: Operation[];
   operationTypes: OperationType[];
+  units: Unit[];
+  shipConditionIndicators: ShipConditionIndicator[];
 };

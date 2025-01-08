@@ -7,3 +7,9 @@
 [class*=" el-"] {
   font-family: var(--el-font-family), serif;
 }
+
+.el-table.hover {
+  tr:hover {
+    cursor: pointer;
+  }
+}

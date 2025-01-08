@@ -2,7 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Unit } from "./Unit.entity";
@@ -15,10 +15,10 @@ export class ShipConditionIndicator {
   @Column()
   name: string;
 
-  @OneToOne(() => Unit)
+  @ManyToOne(() => Unit)
   @JoinColumn()
   unit: Unit;
 
-  @Column()
+  @Column({ nullable: true })
   features: string;
 }
