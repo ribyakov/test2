@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from "vue";
-import { VoyageTaskSegment } from "../main/entities";
+import { VoyageSegment } from "../main/entities";
 import TimeJournal from "./journals/TimeJournal.vue";
 
-const currentSegment = ref<VoyageTaskSegment>();
-const segments = ref<VoyageTaskSegment[]>([]);
+const currentSegment = ref<VoyageSegment>();
+const segments = ref<VoyageSegment[]>([]);
 const activeTab = ref<string>("first");
 
 const fetchVoyageSegments = async (id: number) => {

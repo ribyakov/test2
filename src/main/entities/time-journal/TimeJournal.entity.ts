@@ -6,7 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { VoyageTaskSegment } from "../Voyage/VoyageTaskSegment.entity";
+import { VoyageSegment } from "../voyage/VoyageSegment.entity";
 import { TimeZone } from "../masterdata/TimeZone.entity";
 import { TimeJournalEntry } from "./TimeJournalEntry.entity";
 
@@ -15,9 +15,9 @@ export class TimeJournal {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => VoyageTaskSegment)
+  @ManyToOne(() => VoyageSegment)
   @JoinColumn()
-  segment: VoyageTaskSegment;
+  segment: VoyageSegment;
 
   @ManyToOne(() => TimeZone)
   @JoinColumn()

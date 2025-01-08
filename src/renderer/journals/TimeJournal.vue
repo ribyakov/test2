@@ -52,13 +52,13 @@ import TimeJournalForm from "./TimeJournalForm.vue";
 import {
   TimeJournal,
   TimeJournalEntry,
-  VoyageTaskSegment,
+  VoyageSegment,
 } from "../../main/entities";
 import { cloneDeep } from "lodash";
 import BaseDeletePopConfirm from "../base-components/BaseDeletePopConfirm.vue";
 
 const props = defineProps<{
-  segment?: VoyageTaskSegment;
+  segment?: VoyageSegment;
 }>();
 
 const journal = ref<TimeJournal | null>();

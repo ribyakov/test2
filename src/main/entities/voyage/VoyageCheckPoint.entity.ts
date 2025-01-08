@@ -1,9 +1,9 @@
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { VoyageTask } from "./VoyageTask.entity";
+import { Voyage } from "./Voyage.entity";
 import { CheckPoint } from "../masterdata/CheckPoint.entity";
 
 @Entity()
-export class VoyageTaskCheckPoint {
+export class VoyageCheckPoint {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,8 +11,8 @@ export class VoyageTaskCheckPoint {
   @JoinColumn()
   checkPoint: CheckPoint;
 
-  @ManyToOne(() => VoyageTask, (task) => task.checkPoints, {
+  @ManyToOne(() => Voyage, (task) => task.checkPoints, {
     onDelete: "CASCADE",
   })
-  voyage: VoyageTask;
+  voyage: Voyage;
 }

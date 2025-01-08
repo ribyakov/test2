@@ -11,15 +11,15 @@ import { ShipConditionIndicator } from "./masterdata/ShipConditionIndicator.enti
 import { CheckPoint } from "./masterdata/CheckPoint.entity";
 import { Tank } from "./masterdata/Tank/Tank.entity";
 import { Fuel } from "./masterdata/Fuel/Fuel.entity";
-import { VoyageTask } from "./Voyage/VoyageTask.entity";
-import { VoyageTaskStorageTankFunction } from "./Voyage/VoyageTaskStorageTankFunction.entity";
-import { VoyageTaskOilRemaining } from "./Voyage/VoyageTaskOilRemaining.entity";
-import { VoyageTaskFuelRemaining } from "./Voyage/VoyageTaskFuelRemaining.entity";
-import { VoyageTaskWaterRemaining } from "./Voyage/VoyageTaskWaterRemaining.entity";
-import { VoyageTaskSegment } from "./Voyage/VoyageTaskSegment.entity";
-import { VoyageTaskCheckPoint } from "./Voyage/VoyageTaskCheckPoint.entity";
-import { TimeJournal } from "./TimeJournal/TimeJournal.entity";
-import { TimeJournalEntry } from "./TimeJournal/TimeJournalEntry.entity";
+import { Voyage } from "./voyage/Voyage.entity";
+import { VoyageStorageTankFunction } from "./voyage/VoyageStorageTankFunction.entity";
+import { VoyageOilRemaining } from "./voyage/VoyageOilRemaining.entity";
+import { VoyageFuelRemaining } from "./voyage/VoyageFuelRemaining.entity";
+import { VoyageWaterRemaining } from "./voyage/VoyageWaterRemaining.entity";
+import { VoyageSegment } from "./voyage/VoyageSegment.entity";
+import { VoyageCheckPoint } from "./voyage/VoyageCheckPoint.entity";
+import { TimeJournal } from "./time-journal/TimeJournal.entity";
+import { TimeJournalEntry } from "./time-journal/TimeJournalEntry.entity";
 import { TimeZone } from "./masterdata/TimeZone.entity";
 
 export * from "./masterdata/CargoType.entity";
@@ -36,26 +36,26 @@ export * from "./masterdata/ShipConditionIndicator.entity";
 export * from "./masterdata/CheckPoint.entity";
 export * from "./masterdata/Tank/Tank.entity";
 export * from "./masterdata/Fuel/Fuel.entity";
-export * from "./Voyage/VoyageTask.entity";
-export * from "./Voyage/VoyageTaskStorageTankFunction.entity";
-export * from "./Voyage/VoyageTaskOilRemaining.entity";
-export * from "./Voyage/VoyageTaskFuelRemaining.entity";
-export * from "./Voyage/VoyageTaskWaterRemaining.entity";
-export * from "./Voyage/VoyageTaskSegment.entity";
-export * from "./Voyage/VoyageTaskCheckPoint.entity";
-export * from "./TimeJournal/TimeJournal.entity";
-export * from "./TimeJournal/TimeJournalEntry.entity";
+export * from "./voyage/Voyage.entity";
+export * from "./voyage/VoyageStorageTankFunction.entity";
+export * from "./voyage/VoyageOilRemaining.entity";
+export * from "./voyage/VoyageFuelRemaining.entity";
+export * from "./voyage/VoyageWaterRemaining.entity";
+export * from "./voyage/VoyageSegment.entity";
+export * from "./voyage/VoyageCheckPoint.entity";
+export * from "./time-journal/TimeJournal.entity";
+export * from "./time-journal/TimeJournalEntry.entity";
 
 export const entities = [
   TimeJournal,
   TimeJournalEntry,
-  VoyageTaskCheckPoint,
-  VoyageTaskSegment,
-  VoyageTaskWaterRemaining,
-  VoyageTaskOilRemaining,
-  VoyageTaskFuelRemaining,
-  VoyageTaskStorageTankFunction,
-  VoyageTask,
+  VoyageCheckPoint,
+  VoyageSegment,
+  VoyageWaterRemaining,
+  VoyageOilRemaining,
+  VoyageFuelRemaining,
+  VoyageStorageTankFunction,
+  Voyage,
   Fuel,
   Tank,
   CheckPoint,

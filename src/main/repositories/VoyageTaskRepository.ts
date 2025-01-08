@@ -1,11 +1,9 @@
 // user.repository.ts
 import { AppDataSource } from "../typeorm.config";
-import { VoyageTask } from "../entities";
+import { Voyage } from "../entities";
 
-export const VoyageTaskRepository = AppDataSource.getRepository(
-  VoyageTask,
-).extend({
-  async save(voyage: VoyageTask) {
+export const VoyageTaskRepository = AppDataSource.getRepository(Voyage).extend({
+  async save(voyage: Voyage) {
     const queryRunner = AppDataSource.createQueryRunner();
 
     // let's now open a new transaction:

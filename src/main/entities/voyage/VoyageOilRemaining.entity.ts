@@ -7,12 +7,12 @@ import {
   Index,
 } from "typeorm";
 import { Tank } from "../masterdata/Tank/Tank.entity";
-import { VoyageTask } from "./VoyageTask.entity";
+import { Voyage } from "./Voyage.entity";
 import { Oil } from "../masterdata/Oil/Oil.entity";
 
 @Entity()
 @Index(["voyage", "storageTank", "oil"], { unique: true })
-export class VoyageTaskOilRemaining {
+export class VoyageOilRemaining {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -27,8 +27,8 @@ export class VoyageTaskOilRemaining {
   @Column()
   remain: number;
 
-  @ManyToOne(() => VoyageTask, (task) => task.oilRemaining, {
+  @ManyToOne(() => Voyage, (task) => task.oilRemaining, {
     onDelete: "CASCADE",
   })
-  voyage: VoyageTask;
+  voyage: Voyage;
 }

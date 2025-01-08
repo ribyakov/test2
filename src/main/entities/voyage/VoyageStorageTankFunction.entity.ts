@@ -4,15 +4,13 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  Index,
 } from "typeorm";
 import { Tank } from "../masterdata/Tank/Tank.entity";
-import { VoyageTask } from "./VoyageTask.entity";
-import { WaterType } from "./WaterType";
+import { TankFunction } from "../masterdata/Tank/TankFunction";
+import { Voyage } from "./Voyage.entity";
 
 @Entity()
-@Index(["voyage", "storageTank", "water"], { unique: true })
-export class VoyageTaskWaterRemaining {
+export class VoyageStorageTankFunction {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -21,13 +19,10 @@ export class VoyageTaskWaterRemaining {
   storageTank: Tank;
 
   @Column()
-  water: WaterType;
+  function: TankFunction;
 
-  @Column()
-  remain: number;
-
-  @ManyToOne(() => VoyageTask, (task) => task.fuelRemaining, {
+  @ManyToOne(() => Voyage, (task) => task.storageTankFunctions, {
     onDelete: "CASCADE",
   })
-  voyage: VoyageTask;
+  voyage: Voyage;
 }

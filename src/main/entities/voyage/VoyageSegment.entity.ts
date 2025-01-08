@@ -5,12 +5,12 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { VoyageTask } from "./VoyageTask.entity";
+import { Voyage } from "./Voyage.entity";
 import { CheckPoint } from "../masterdata/CheckPoint.entity";
 import { RouteSegmentType } from "./RouteSegmentType";
 
 @Entity()
-export class VoyageTaskSegment {
+export class VoyageSegment {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,9 +20,9 @@ export class VoyageTaskSegment {
   @Column()
   order: number;
 
-  @ManyToOne(() => VoyageTask, { onDelete: "CASCADE" })
+  @ManyToOne(() => Voyage, { onDelete: "CASCADE" })
   @JoinColumn()
-  voyage: VoyageTask;
+  voyage: Voyage;
 
   @ManyToOne(() => CheckPoint)
   @JoinColumn()

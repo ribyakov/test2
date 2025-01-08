@@ -11,17 +11,17 @@ import {
   TimeJournal,
   TimeJournalEntry,
   Unit,
-  VoyageTask,
-  VoyageTaskCheckPoint,
-  VoyageTaskSegment,
+  Voyage,
+  VoyageCheckPoint,
+  VoyageSegment,
 } from "./entities";
 import { VoyageTaskRepository } from "./repositories/VoyageTaskRepository";
-import { RouteSegmentType } from "./entities/Voyage/RouteSegmentType";
+import { RouteSegmentType } from "./entities/voyage/RouteSegmentType";
 import { TimeJournalRepository } from "./repositories/TimeJournalRepository";
 
 AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.clear(TimeJournal);
-  await AppDataSource.manager.clear(VoyageTask);
+  await AppDataSource.manager.clear(Voyage);
   await AppDataSource.manager.clear(CheckPoint);
   await AppDataSource.manager.clear(Unit);
   await AppDataSource.manager.clear(Ship);
@@ -68,7 +68,7 @@ AppDataSource.initialize().then(async () => {
   point1 = await AppDataSource.manager.save(point1);
   point2 = await AppDataSource.manager.save(point2);
 
-  let voyage = new VoyageTask();
+  let voyage = new Voyage();
   voyage.charter = true;
   voyage.ship = ship;
   voyage.charterer = "test";
@@ -79,13 +79,13 @@ AppDataSource.initialize().then(async () => {
   voyage.scheduledFinishDate = new Date();
   voyage.comments = "Рейсовое задания - демонстрационный пример";
 
-  const voyagePoint1 = new VoyageTaskCheckPoint();
+  const voyagePoint1 = new VoyageCheckPoint();
   voyagePoint1.checkPoint = point1;
 
-  const voyagePoint2 = new VoyageTaskCheckPoint();
+  const voyagePoint2 = new VoyageCheckPoint();
   voyagePoint2.checkPoint = point2;
 
-  const voyagePoint3 = new VoyageTaskCheckPoint();
+  const voyagePoint3 = new VoyageCheckPoint();
   voyagePoint3.checkPoint = point1;
 
   voyage.checkPoints = [voyagePoint1, voyagePoint2, voyagePoint3];
@@ -108,7 +108,7 @@ AppDataSource.initialize().then(async () => {
   await AppDataSource.manager.save(operation2);
 
   // create voyage segments
-  let vs1 = new VoyageTaskSegment();
+  let vs1 = new VoyageSegment();
   vs1.voyage = voyage;
   vs1.name = 'Нахождение в порту "Холмский морской торговый порт"';
   vs1.startPoint = point1;
@@ -119,7 +119,7 @@ AppDataSource.initialize().then(async () => {
 
   await AppDataSource.manager.save(vs1);
 
-  let vs2 = new VoyageTaskSegment();
+  let vs2 = new VoyageSegment();
   vs2.voyage = voyage;
   vs2.name = 'Отход от порта "Холмский морской торговый порт"';
   vs2.startPoint = point1;
@@ -129,7 +129,7 @@ AppDataSource.initialize().then(async () => {
 
   await AppDataSource.manager.save(vs2);
 
-  let vs3 = new VoyageTaskSegment();
+  let vs3 = new VoyageSegment();
   vs3.voyage = voyage;
   vs3.name = 'Морской переход "Холмский морской торговый порт"->"Пункт-порт 2"';
   vs3.startPoint = point1;
@@ -139,7 +139,7 @@ AppDataSource.initialize().then(async () => {
 
   await AppDataSource.manager.save(vs3);
 
-  let vs4 = new VoyageTaskSegment();
+  let vs4 = new VoyageSegment();
   vs4.voyage = voyage;
   vs4.name = 'Подход к порту "Пункт-порт 2"';
   vs4.startPoint = point1;
@@ -149,7 +149,7 @@ AppDataSource.initialize().then(async () => {
 
   await AppDataSource.manager.save(vs4);
 
-  let vs5 = new VoyageTaskSegment();
+  let vs5 = new VoyageSegment();
   vs5.voyage = voyage;
   vs5.name = 'Нахождение в порту "Пункт-порт 2"';
   vs5.startPoint = point2;
@@ -160,7 +160,7 @@ AppDataSource.initialize().then(async () => {
 
   await AppDataSource.manager.save(vs5);
 
-  let vs6 = new VoyageTaskSegment();
+  let vs6 = new VoyageSegment();
   vs6.voyage = voyage;
   vs6.name = 'Отход от порта "Пункт-порт 2"';
   vs6.startPoint = point2;
@@ -170,7 +170,7 @@ AppDataSource.initialize().then(async () => {
 
   await AppDataSource.manager.save(vs6);
 
-  let vs7 = new VoyageTaskSegment();
+  let vs7 = new VoyageSegment();
   vs7.voyage = voyage;
   vs7.name = 'Морской переход "Пункт-порт 2"->"Холмский морской торговый порт"';
   vs7.startPoint = point2;
@@ -180,7 +180,7 @@ AppDataSource.initialize().then(async () => {
 
   await AppDataSource.manager.save(vs7);
 
-  let vs8 = new VoyageTaskSegment();
+  let vs8 = new VoyageSegment();
   vs8.voyage = voyage;
   vs8.name = 'Подход к порту "Холмский морской торговый порт"';
   vs8.startPoint = point2;
@@ -190,7 +190,7 @@ AppDataSource.initialize().then(async () => {
 
   await AppDataSource.manager.save(vs8);
 
-  let vs9 = new VoyageTaskSegment();
+  let vs9 = new VoyageSegment();
   vs9.voyage = voyage;
   vs9.name = 'Нахождение в порту "Холмский морской торговый порт"';
   vs9.startPoint = point2;
