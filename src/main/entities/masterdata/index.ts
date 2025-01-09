@@ -3,6 +3,7 @@ import {
   OperationType,
   Unit,
   ShipConditionIndicator,
+  CargoType,
 } from "./../../entities";
 
 export type AllMasterdata = {
@@ -10,4 +11,5 @@ export type AllMasterdata = {
   operationTypes: OperationType[];
   units: Unit[];
   shipConditionIndicators: ShipConditionIndicator[];
+  cargoTypes: CargoType[];
 };

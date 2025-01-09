@@ -53,5 +53,20 @@
     "editForm": {
       "title": "Запись журнала"
     }
+  },
+  "CargoOperationJournal": {
+    "name": "Журнал учета ПРР",
+    "list": {
+      "table": {
+        "column": {
+          "cargoType": "Вид груза",
+          "description": "Описание груза",
+          "value": "Количество"
+        }
+      }
+    },
+    "editForm": {
+      "title": "Запись журнала"
+    }
   }
 }

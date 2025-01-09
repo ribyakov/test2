@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import {
+  CargoType,
   Fuel,
   FuelType,
   Oil,
@@ -18,6 +19,8 @@ export const useMasterdata = defineStore("MasterData", () => {
   const units = ref<Unit[]>([]);
 
   const shipConditionIndicators = ref<ShipConditionIndicator[]>([]);
+
+  const cargoTypes = ref<CargoType[]>([]);
 
   const fuels = ref<Fuel[]>([]);
   const fuelTypes = ref<FuelType[]>([]);
@@ -38,12 +41,14 @@ export const useMasterdata = defineStore("MasterData", () => {
     operationTypes.value = result.operationTypes;
     units.value = result.units;
     shipConditionIndicators.value = result.shipConditionIndicators;
+    cargoTypes.value = result.cargoTypes;
 
     console.log("masterdata", result);
   };
 
   return {
     operations,
+    cargoTypes,
     getOperationTypeById,
     shipConditionIndicators,
     get,

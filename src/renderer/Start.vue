@@ -3,10 +3,12 @@ import { onBeforeMount, ref } from "vue";
 import { VoyageSegment } from "../main/entities";
 import TimeJournal from "./journals/TimeJournal.vue";
 import ConditionJournal from "./journals/ConditionJournal.vue";
+import CargoOperationJournal from "./journals/CargoOperationJournal.vue";
 
 enum Tabs {
   TIME_JOURNAL = "TIME_JOURNAL",
   CONDITION_JOURNAL = "CONDITION_JOURNAL",
+  CARGO_OPERATION_JOURNAL = "CARGO_OPERATION_JOURNAL",
 }
 
 const currentSegment = ref<VoyageSegment>();
@@ -42,11 +44,19 @@ onBeforeMount(async () => {
       <el-tab-pane :label="$t('TimeJournal.name')" :name="Tabs.TIME_JOURNAL">
         <TimeJournal :segment="currentSegment"
       /></el-tab-pane>
+
       <el-tab-pane
         :label="$t('ConditionJournal.name')"
         :name="Tabs.CONDITION_JOURNAL"
       >
         <ConditionJournal :segment="currentSegment"
+      /></el-tab-pane>
+
+      <el-tab-pane
+        :label="$t('CargoOperationJournal.name')"
+        :name="Tabs.CARGO_OPERATION_JOURNAL"
+      >
+        <CargoOperationJournal :segment="currentSegment"
       /></el-tab-pane>
     </el-tabs>
   </div>

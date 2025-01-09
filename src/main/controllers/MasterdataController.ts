@@ -4,6 +4,7 @@ import {
   OperationType,
   Unit,
   ShipConditionIndicator,
+  CargoType,
 } from "../entities";
 import { AllMasterdata } from "../entities/masterdata";
 
@@ -15,12 +16,14 @@ export class MasterdataController {
     const shipConditionIndicators = await AppDataSource.manager.find(
       ShipConditionIndicator,
     );
+    const cargoTypes = await AppDataSource.manager.find(CargoType);
 
     return {
       operations,
       operationTypes,
       units,
       shipConditionIndicators,
+      cargoTypes,
     };
   }
 }

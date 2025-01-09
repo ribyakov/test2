@@ -102,7 +102,7 @@ const show = (entry?: ConditionJournalGeo) => {
   }
 
   form.date = currentItem.date as Date;
-  form.coordinate = currentItem.coordinate;
+  form.coordinate = currentItem.coordinate as string;
 
   v$.value.$reset();
 
