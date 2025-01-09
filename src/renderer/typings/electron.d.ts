@@ -1,4 +1,8 @@
-import { TimeJournal, VoyageSegment } from "../../main/entities";
+import {
+  CargoOperationJournal,
+  TimeJournal,
+  VoyageSegment,
+} from "../../main/entities";
 import { AllMasterdata } from "../../main/entities/masterdata";
 import { ConditionJournal } from "../../main/entities";
 
@@ -15,6 +19,12 @@ export default interface ElectronApi {
       segmentId: number,
     ) => Promise<ConditionJournal | undefined>;
     save: (journal: ConditionJournal) => Promise<void>;
+  };
+  cargoOperationJournal: {
+    getBySegmentId: (
+      segmentId: number,
+    ) => Promise<CargoOperationJournal | undefined>;
+    save: (journal: CargoOperationJournal) => Promise<void>;
   };
   masterdata: {
     get: () => Promise<AllMasterdata>;

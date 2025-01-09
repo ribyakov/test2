@@ -1,4 +1,5 @@
 import {
+  CargoType,
   CheckPoint,
   ConditionJournal,
   GeographicCoordinate,
@@ -26,5 +27,6 @@ export async function clear(dataSource: DataSource) {
   await dataSource.manager.clear(Tank);
   await dataSource.manager.clear(Operation);
   await dataSource.manager.clear(OperationType);
+  await dataSource.manager.clear(CargoType);
   await dataSource.manager.clear(Unit);
 }

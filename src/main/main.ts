@@ -5,9 +5,14 @@ import { AppDataSource } from "./typeorm.config";
 import IpcMain = Electron.IpcMain;
 import { VoyageController } from "./controllers/VoyageController";
 import { TimeJournalController } from "./controllers/TimeJournalController";
-import { ConditionJournal, TimeJournal } from "./entities";
+import {
+  CargoOperationJournal,
+  ConditionJournal,
+  TimeJournal,
+} from "./entities";
 import { MasterdataController } from "./controllers/MasterdataController";
 import { ConditionJournalController } from "./controllers/ConditionJournalController";
+import { CargoOperationJournalController } from "./controllers/CargoOperationJournalController";
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -87,6 +92,22 @@ const connectApi = (ipcMain: IpcMain) => {
     "conditionJournal/save",
     async (_, journal: ConditionJournal) => {
       const controller = new ConditionJournalController();
+      return controller.save(journal);
+    },
+  );
+
+  ipcMain.handle(
+    "cargoOperationJournal/getBySegmentId",
+    async (_, segmentId: number) => {
+      const controller = new CargoOperationJournalController();
+      return controller.getBySegmentId(segmentId);
+    },
+  );
+
+  ipcMain.handle(
+    "cargoOperationJournal/save",
+    async (_, journal: CargoOperationJournal) => {
+      const controller = new CargoOperationJournalController();
       return controller.save(journal);
     },
   );

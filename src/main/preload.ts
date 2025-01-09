@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { TimeJournal } from "./entities";
+import { CargoOperationJournal, TimeJournal } from "./entities";
 import { AllMasterdata } from "./entities/masterdata";
 
 contextBridge.exposeInMainWorld("api", {
@@ -18,6 +18,13 @@ contextBridge.exposeInMainWorld("api", {
       ipcRenderer.invoke("conditionJournal/getBySegmentId", segmentId),
     save: async (journal: TimeJournal) => {
       await ipcRenderer.invoke("conditionJournal/save", journal);
+    },
+  },
+  cargoOperationJournal: {
+    getBySegmentId: (segmentId: number) =>
+      ipcRenderer.invoke("cargoOperationJournal/getBySegmentId", segmentId),
+    save: async (journal: CargoOperationJournal) => {
+      await ipcRenderer.invoke("cargoOperationJournal/save", journal);
     },
   },
   masterdata: {

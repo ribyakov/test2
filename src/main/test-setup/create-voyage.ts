@@ -1,5 +1,9 @@
 import {
+  CargoOperationJournal,
+  CargoOperationJournalEntry,
+  CargoType,
   CheckPoint,
+  ConditionJournal,
   ConditionJournalGeo,
   ConditionJournalIndicator,
   Ship,
@@ -13,10 +17,11 @@ import { VoyageTaskRepository } from "../repositories/VoyageTaskRepository";
 import { RouteSegmentType } from "../entities/voyage/RouteSegmentType";
 import { TimeJournalRepository } from "../repositories/TimeJournalRepository";
 import { DataSource } from "typeorm";
-import { ConditionJournal } from "../entities";
 import { ConditionJournalRepository } from "../repositories/ConditionJournalRepository";
 import { GeographicCoordinateRepository } from "../repositories/GeographicCoordinateRepository";
+import { CargoOperationJournalRepository } from "../repositories/CargoOperationJournalRepository";
 import { AppDataSource } from "../typeorm.config";
+import { CargoOperationType } from "../entities/cargo-operation-journal/CargoOperationType";
 
 export async function createVoyage(dataSource: DataSource) {
   let ship = new Ship();
@@ -189,4 +194,32 @@ export async function createVoyage(dataSource: DataSource) {
   cjp1.indicators = [cji1];
 
   await ConditionJournalRepository.save(conditionJournal);
+
+  // create cargo operation journal
+  let cargoOperationJournal = new CargoOperationJournal();
+  cargoOperationJournal.segment = vs1;
+
+  const coje1 = new CargoOperationJournalEntry();
+  coje1.type = CargoOperationType.LOAD;
+  coje1.cargoType = (await AppDataSource.manager.findOne(CargoType, {
+    where: {
+      name: "Обыкновенный",
+    },
+  })) as CargoType;
+
+  coje1.value = 111;
+
+  const coje2 = new CargoOperationJournalEntry();
+  coje2.type = CargoOperationType.UNLOAD;
+  coje2.cargoType = (await AppDataSource.manager.findOne(CargoType, {
+    where: {
+      name: "Обыкновенный",
+    },
+  })) as CargoType;
+
+  coje2.value = 55;
+
+  cargoOperationJournal.entries = [coje1, coje2];
+
+  await CargoOperationJournalRepository.save(cargoOperationJournal);
 }

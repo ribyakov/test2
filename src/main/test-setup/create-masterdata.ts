@@ -5,6 +5,7 @@ import {
   OperationType,
   ShipConditionIndicator,
   Unit,
+  CargoType,
 } from "../entities";
 import { DataSource } from "typeorm";
 
@@ -12,6 +13,31 @@ export async function createMasterdata(dataSource: DataSource) {
   await createOils(dataSource);
   await createOperations(dataSource);
   await createIndicators(dataSource);
+  await createCargoTypes(dataSource);
+}
+
+async function createCargoTypes(dataSource: DataSource) {
+  const unit1 = new Unit();
+  unit1.name = "кг";
+
+  const unit2 = new Unit();
+  unit2.name = "л";
+  await dataSource.manager.save(unit1);
+  await dataSource.manager.save(unit2);
+
+  const cargoType1 = new CargoType();
+  cargoType1.name = "Обыкновенный";
+
+  cargoType1.units = [unit1, unit2];
+
+  await dataSource.manager.save(cargoType1);
+
+  const cargoType2 = new CargoType();
+  cargoType2.name = "Насыпные";
+
+  cargoType2.units = [unit1, unit2];
+
+  await dataSource.manager.save(cargoType2);
 }
 
 async function createIndicators(dataSource: DataSource) {

@@ -1,6 +1,6 @@
 import { AppDataSource } from "../typeorm.config";
 import { v4 as uuidv4 } from "uuid";
-import { ConditionJournal } from "../entities";
+import { CargoOperationJournal } from "../entities";
 
 export const CargoOperationJournalRepository = AppDataSource.getRepository(
   CargoOperationJournal,
@@ -18,7 +18,10 @@ export const CargoOperationJournalRepository = AppDataSource.getRepository(
       }
 
       // execute some operations on this transaction:
-      const result = await queryRunner.manager.save(ConditionJournal, journal);
+      const result = await queryRunner.manager.save(
+        CargoOperationJournal,
+        journal,
+      );
       console.log("journal saved successfully");
 
       // commit transaction now:
