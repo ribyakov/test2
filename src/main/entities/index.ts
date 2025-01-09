@@ -24,6 +24,8 @@ import { TimeZone } from "./masterdata/TimeZone.entity";
 import { ConditionJournal } from "./condition-journal/ConditionJournal.entity";
 import { ConditionJournalGeo } from "./condition-journal/ConditionJournalGeo.entity";
 import { ConditionJournalIndicator } from "./condition-journal/ConditionJournalIndicator.entity";
+import { CargoOperationJournal } from "./cargo-operation-journal/CargoOperationJournal.entity";
+import { CargoOperationJournalEntry } from "./cargo-operation-journal/CargoOperationJournalEntry.entity";
 
 export * from "./masterdata/CargoType.entity";
 export * from "./GeographicCoordinate.entity";
@@ -51,8 +53,12 @@ export * from "./time-journal/TimeJournalEntry.entity";
 export * from "./condition-journal/ConditionJournal.entity";
 export * from "./condition-journal/ConditionJournalGeo.entity";
 export * from "./condition-journal/ConditionJournalIndicator.entity";
+export * from "./cargo-operation-journal/CargoOperationJournal.entity";
+export * from "./cargo-operation-journal/CargoOperationJournalEntry.entity";
 
 export const entities = [
+  CargoOperationJournal,
+  CargoOperationJournalEntry,
   ConditionJournal,
   ConditionJournalGeo,
   ConditionJournalIndicator,

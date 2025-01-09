@@ -27,7 +27,7 @@ const { el, masked, unmasked } = useIMask(
   {
     onAccept: () => {
       const normalized = normalizeInput(masked.value);
-      emit("complete", normalized);
+      emit("complete", normalized, masked.value);
     },
     onComplete: () => {
       const normalized = normalizeInput(masked.value);
