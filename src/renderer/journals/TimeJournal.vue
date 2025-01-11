@@ -43,11 +43,8 @@
       :label="$t('TimeJournal.list.table.column.comments')"
     />
     <el-table-column fixed="right" min-width="120">
-      <template #default="{ row }">
-        <el-button link :icon="Edit" type="primary" @click="edit(row)">
-        </el-button>
-        <BaseDeletePopConfirm :confirm="() => deleteEntry(row)" />
-        <template v-if="true">
+      <template #default="{ row }: { row: TimeJournalEntry }">
+        <template v-if="row.locked">
           <el-tooltip
             class="box-item"
             effect="dark"
@@ -100,8 +97,6 @@ const load = async () => {
   journal.value = await window.api.timeJournal.getBySegmentId(
     props.segment!.id,
   );
-
-  console.log(journal.value);
 };
 
 const form = ref<InstanceType<typeof TimeJournalForm> | null>(null);
@@ -130,10 +125,7 @@ const onItemSave = async (entry: TimeJournalEntry) => {
 };
 
 const deleteEntry = async (entry: TimeJournalEntry) => {
-  journal.value!.entries = journal.value!.entries.filter(
-    (e) => e.id !== entry.id,
-  );
-  await window.api.timeJournal.save(cloneDeep(journal.value!));
+  await window.api.timeJournal.deleteEntry(cloneDeep(entry));
   void load();
 };
 </script>

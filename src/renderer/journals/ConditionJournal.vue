@@ -77,10 +77,7 @@ const onIndicatorChange = async (point: ConditionJournalGeo) => {
 };
 
 const onPointDelete = async (point: ConditionJournalGeo) => {
-  journal.value!.points = journal.value!.points.filter(
-    (e) => e.id !== point.id,
-  );
-  await window.api.conditionJournal.save(cloneDeep(journal.value!));
+  await window.api.conditionJournal.deleteEntry(cloneDeep(point));
   void load();
 };
 

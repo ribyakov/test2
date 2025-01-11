@@ -1,12 +1,11 @@
 import {
-  EventSubscriber,
   EntitySubscriberInterface,
-  UpdateEvent,
+  EventSubscriber,
   RemoveEvent,
+  UpdateEvent,
 } from "typeorm";
 import { ConditionJournalGeo } from "./condition-journal/ConditionJournalGeo.entity";
 import { isLocked } from "../repositories/LockableRepository";
-import { TimeJournalEntry } from "./time-journal/TimeJournalEntry.entity";
 
 @EventSubscriber()
 export class ConditionJournalGeoSubscriber
@@ -20,15 +19,16 @@ export class ConditionJournalGeoSubscriber
    * Called after entity is loaded.
    */
   async afterLoad(entity: ConditionJournalGeo) {
-    const locked = await isLocked(entity);
-    entity.locked = locked;
+    entity.locked = await isLocked(entity);
   }
 
   async beforeUpdate(event: UpdateEvent<ConditionJournalGeo>) {
-    const entity = event.entity as ConditionJournalGeo;
-    const locked = await isLocked(entity);
-    if (locked) {
-      throw new Error("UPDATE LOCKED");
+    const entity = event.entity;
+    if (entity) {
+      const locked = await isLocked(entity as ConditionJournalGeo);
+      if (locked) {
+        throw new Error("UPDATE LOCKED");
+      }
     }
   }
 
@@ -36,11 +36,12 @@ export class ConditionJournalGeoSubscriber
    * Called before entity removal.
    */
   async beforeRemove(event: RemoveEvent<ConditionJournalGeo>) {
-    const entity = event.entity as ConditionJournalGeo;
-    console.log(event);
-    const locked = await isLocked(entity);
-    if (locked) {
-      throw new Error("DELETE LOCKED");
+    const entity = event.entity;
+    if (entity) {
+      const locked = await isLocked(entity);
+      if (locked) {
+        throw new Error("DELETE LOCKED");
+      }
     }
   }
 }

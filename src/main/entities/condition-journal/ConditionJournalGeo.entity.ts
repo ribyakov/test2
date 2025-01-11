@@ -46,5 +46,5 @@ export class ConditionJournalGeo implements Lockable {
   })
   journal: ConditionJournal;
 
-  locked: boolean;
+  locked?: boolean;
 }

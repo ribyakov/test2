@@ -38,5 +38,5 @@ export class TimeJournalEntry implements Lockable {
   })
   journal: TimeJournal;
 
-  locked: boolean;
+  locked?: boolean;
 }
