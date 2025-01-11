@@ -28,10 +28,22 @@
       {{ row.masked }}
     </el-table-column>
     <el-table-column fixed="right">
-      <template #default="{ row }">
-        <el-button link :icon="Edit" type="primary" @click="edit(row)">
-        </el-button>
-        <BaseDeletePopConfirm :confirm="() => emit('delete', row)" />
+      <template #default="{ row }: { row: ConditionJournalGeo }">
+        <template v-if="row.locked">
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            content="Строка заблокирована"
+            placement="top"
+          >
+            <el-button link :icon="Lock" type="primary" disabled />
+          </el-tooltip>
+        </template>
+        <template v-else>
+          <el-button link :icon="Edit" type="primary" @click="edit(row)">
+          </el-button>
+          <BaseDeletePopConfirm :confirm="() => emit('delete', row)" />
+        </template>
       </template>
     </el-table-column>
   </el-table>
@@ -40,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { Edit, Plus } from "@element-plus/icons-vue";
+import { Edit, Lock, Plus } from "@element-plus/icons-vue";
 import { computed, ref } from "vue";
 import ConditionJournalForm from "./ConditionJournalForm.vue";
 import { ConditionJournal, ConditionJournalGeo } from "../../main/entities";

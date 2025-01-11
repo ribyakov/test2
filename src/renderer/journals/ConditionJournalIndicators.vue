@@ -5,6 +5,7 @@
     </el-table-column>
     <el-table-column v-slot="{ row }" width="250" align="right">
       <el-input-number
+        :disabled="props.point?.locked"
         :min="0"
         size="small"
         :precision="3"

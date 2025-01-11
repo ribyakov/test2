@@ -51,14 +51,13 @@ export class Voyage {
 
   @OneToMany(() => VoyageCheckPoint, (point) => point.voyage, {
     eager: true,
-    cascade: true,
   })
   checkPoints: VoyageCheckPoint[];
 
   @OneToMany(
     () => VoyageStorageTankFunction,
     (tankFunction) => tankFunction.voyage,
-    { eager: true, cascade: true },
+    { eager: true },
   )
   storageTankFunctions: VoyageStorageTankFunction[];
 

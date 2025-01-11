@@ -6,9 +6,12 @@ import {
   ConditionJournal,
   ConditionJournalGeo,
   ConditionJournalIndicator,
+  DispatchDataLogbook,
+  Operation,
   Ship,
   ShipConditionIndicator,
   TimeJournal,
+  TimeJournalEntry,
   Voyage,
   VoyageCheckPoint,
   VoyageSegment,
@@ -22,6 +25,7 @@ import { GeographicCoordinateRepository } from "../repositories/GeographicCoordi
 import { CargoOperationJournalRepository } from "../repositories/CargoOperationJournalRepository";
 import { AppDataSource } from "../typeorm.config";
 import { CargoOperationType } from "../entities/cargo-operation-journal/CargoOperationType";
+import { DispatchDataLogbookEntry } from "../entities/dispatch-data-logbook/DispatchDataLogbookEntry.entity";
 
 export async function createVoyage(dataSource: DataSource) {
   let ship = new Ship();
@@ -164,6 +168,18 @@ export async function createVoyage(dataSource: DataSource) {
   let timeJournal = new TimeJournal();
   timeJournal.segment = vs1;
 
+  const te1 = new TimeJournalEntry();
+  te1.operation = (await dataSource.manager.findOne(Operation, {
+    where: {
+      name: "Погрузка",
+    },
+  })) as Operation;
+
+  te1.startTime = new Date();
+  te1.endTime = new Date();
+
+  timeJournal.entries = [te1];
+
   await TimeJournalRepository.save(timeJournal);
 
   // create condition journal
@@ -222,4 +238,19 @@ export async function createVoyage(dataSource: DataSource) {
   cargoOperationJournal.entries = [coje1, coje2];
 
   await CargoOperationJournalRepository.save(cargoOperationJournal);
+
+  const dispatchDataLogbook = new DispatchDataLogbook();
+
+  const ddle1 = new DispatchDataLogbookEntry();
+  ddle1.uuid = te1.uuid;
+
+  const ddle2 = new DispatchDataLogbookEntry();
+  ddle2.uuid = cjp2.uuid;
+
+  console.log(te1.id);
+  console.log(cjp2.id);
+
+  dispatchDataLogbook.entries = [ddle1, ddle2];
+
+  await dataSource.manager.save(dispatchDataLogbook);
 }

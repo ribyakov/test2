@@ -47,6 +47,21 @@
         <el-button link :icon="Edit" type="primary" @click="edit(row)">
         </el-button>
         <BaseDeletePopConfirm :confirm="() => deleteEntry(row)" />
+        <template v-if="true">
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            content="Строка заблокирована"
+            placement="top"
+          >
+            <el-button link :icon="Lock" type="primary" disabled />
+          </el-tooltip>
+        </template>
+        <template v-else>
+          <el-button link :icon="Edit" type="primary" @click="edit(row)">
+          </el-button>
+          <BaseDeletePopConfirm :confirm="() => deleteEntry(row)" />
+        </template>
       </template>
     </el-table-column>
   </el-table>
@@ -54,7 +69,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Edit, Plus } from "@element-plus/icons-vue";
+import { Edit, Lock, Plus } from "@element-plus/icons-vue";
 import { computed, ref, watch } from "vue";
 import TimeJournalForm from "./TimeJournalForm.vue";
 import {
@@ -85,6 +100,8 @@ const load = async () => {
   journal.value = await window.api.timeJournal.getBySegmentId(
     props.segment!.id,
   );
+
+  console.log(journal.value);
 };
 
 const form = ref<InstanceType<typeof TimeJournalForm> | null>(null);

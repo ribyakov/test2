@@ -5,6 +5,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  VirtualColumn,
 } from "typeorm";
 import { VoyageSegment } from "../voyage/VoyageSegment.entity";
 import { TimeZone } from "../masterdata/TimeZone.entity";

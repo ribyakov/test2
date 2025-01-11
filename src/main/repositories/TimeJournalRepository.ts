@@ -1,11 +1,21 @@
 import { AppDataSource } from "../typeorm.config";
-import { TimeJournal } from "../entities";
+import {
+  DispatchDataLogbookEntry,
+  TimeJournal,
+  TimeJournalEntry,
+} from "../entities";
 import { v4 as uuidv4 } from "uuid";
 
 export const TimeJournalRepository = AppDataSource.getRepository(
   TimeJournal,
 ).extend({
+  async isLocked(entity: TimeJournalEntry) {
+    return AppDataSource.manager.findOne(DispatchDataLogbookEntry, {
+      where: { id: entity.id },
+    });
+  },
   async save(journal: TimeJournal) {
+    console.log(journal);
     const queryRunner = AppDataSource.createQueryRunner();
 
     // let's now open a new transaction:

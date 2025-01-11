@@ -26,6 +26,8 @@ import { ConditionJournalGeo } from "./condition-journal/ConditionJournalGeo.ent
 import { ConditionJournalIndicator } from "./condition-journal/ConditionJournalIndicator.entity";
 import { CargoOperationJournal } from "./cargo-operation-journal/CargoOperationJournal.entity";
 import { CargoOperationJournalEntry } from "./cargo-operation-journal/CargoOperationJournalEntry.entity";
+import { DispatchDataLogbook } from "./dispatch-data-logbook/DispatchDataLogbook.entity";
+import { DispatchDataLogbookEntry } from "./dispatch-data-logbook/DispatchDataLogbookEntry.entity";
 
 export * from "./masterdata/CargoType.entity";
 export * from "./GeographicCoordinate.entity";
@@ -55,8 +57,12 @@ export * from "./condition-journal/ConditionJournalGeo.entity";
 export * from "./condition-journal/ConditionJournalIndicator.entity";
 export * from "./cargo-operation-journal/CargoOperationJournal.entity";
 export * from "./cargo-operation-journal/CargoOperationJournalEntry.entity";
+export * from "./dispatch-data-logbook/DispatchDataLogbook.entity";
+export * from "./dispatch-data-logbook/DispatchDataLogbookEntry.entity";
 
 export const entities = [
+  DispatchDataLogbook,
+  DispatchDataLogbookEntry,
   CargoOperationJournal,
   CargoOperationJournalEntry,
   ConditionJournal,

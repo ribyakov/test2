@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
@@ -9,9 +10,10 @@ import {
 import { ConditionJournal } from "./ConditionJournal.entity";
 import { GeographicCoordinate } from "../GeographicCoordinate.entity";
 import { ConditionJournalIndicator } from "./ConditionJournalIndicator.entity";
+import { Lockable } from "../Lockable";
 
 @Entity()
-export class ConditionJournalGeo {
+export class ConditionJournalGeo implements Lockable {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,6 +26,7 @@ export class ConditionJournalGeo {
   @Column()
   masked: string;
 
+  @Index({ unique: true })
   @Column()
   uuid: string;
 
@@ -42,4 +45,6 @@ export class ConditionJournalGeo {
     orphanedRowAction: "delete",
   })
   journal: ConditionJournal;
+
+  locked: boolean;
 }
