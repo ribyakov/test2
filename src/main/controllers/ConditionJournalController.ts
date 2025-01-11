@@ -1,5 +1,6 @@
-import { ConditionJournal } from "../entities";
+import { ConditionJournal, ConditionJournalGeo } from "../entities";
 import { ConditionJournalRepository } from "../repositories/ConditionJournalRepository";
+import { AppDataSource } from "../typeorm.config";
 
 export class ConditionJournalController {
   getBySegmentId(segmentId: number): Promise<ConditionJournal | null> {
@@ -10,5 +11,9 @@ export class ConditionJournalController {
 
   async save(journal: ConditionJournal): Promise<void> {
     await ConditionJournalRepository.save(journal);
+  }
+
+  async deleteEntry(entry: ConditionJournalGeo): Promise<void> {
+    await AppDataSource.manager.remove(ConditionJournalGeo, entry);
   }
 }
