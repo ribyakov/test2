@@ -5,7 +5,7 @@ import {
   UpdateEvent,
 } from "typeorm";
 import { ConditionJournalGeo } from "./condition-journal/ConditionJournalGeo.entity";
-import { isLocked } from "../repositories/LockableRepository";
+import { LockableRepository } from "../repositories/LockableRepository";
 
 @EventSubscriber()
 export class ConditionJournalGeoSubscriber
@@ -19,13 +19,15 @@ export class ConditionJournalGeoSubscriber
    * Called after entity is loaded.
    */
   async afterLoad(entity: ConditionJournalGeo) {
-    entity.locked = await isLocked(entity);
+    entity.locked = await LockableRepository.isLocked(entity);
   }
 
   async beforeUpdate(event: UpdateEvent<ConditionJournalGeo>) {
     const entity = event.entity;
     if (entity) {
-      const locked = await isLocked(entity as ConditionJournalGeo);
+      const locked = await LockableRepository.isLocked(
+        entity as ConditionJournalGeo,
+      );
       if (locked) {
         throw new Error("UPDATE LOCKED");
       }
@@ -38,7 +40,7 @@ export class ConditionJournalGeoSubscriber
   async beforeRemove(event: RemoveEvent<ConditionJournalGeo>) {
     const entity = event.entity;
     if (entity) {
-      const locked = await isLocked(entity);
+      const locked = await LockableRepository.isLocked(entity);
       if (locked) {
         throw new Error("DELETE LOCKED");
       }

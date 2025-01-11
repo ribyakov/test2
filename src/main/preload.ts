@@ -28,7 +28,7 @@ const API = {
     ): Promise<ConditionJournal | undefined> =>
       ipcRenderer.invoke("condition-journal/get-by-segment-id", segmentId),
     save: async (journal: ConditionJournal) => {
-      await ipcRenderer.invoke("conditionJournal/save", journal);
+      await ipcRenderer.invoke("condition-journal/save", journal);
     },
     deleteEntry: async (entry: ConditionJournalGeo) => {
       await ipcRenderer.invoke("condition-journal/delete-item", entry);
