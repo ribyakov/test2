@@ -48,7 +48,6 @@ const load = async () => {
   journal.value = await window.api.conditionJournal.getBySegmentId(
     props.segment!.id,
   );
-  console.log(journal.value);
 };
 
 const onPointChange = async (point: ConditionJournalGeo) => {

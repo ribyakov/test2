@@ -89,7 +89,6 @@ const connectApi = (ipcMain: IpcMain) => {
     "time-journal/delete-item",
     async (_, entry: TimeJournalEntry) => {
       const controller = new TimeJournalController();
-      console.log("entry", entry);
       return controller.deleteEntry(entry);
     },
   );
