@@ -1,5 +1,5 @@
 import { AppDataSource } from "../typeorm.config";
-import { DispatchDataLogbookEntry } from "../entities";
+import { DispatchDataLogbook, DispatchDataLogbookEntry } from "../entities";
 import { Lockable } from "../entities/Lockable";
 
 export class LockableRepository {
@@ -13,18 +13,19 @@ export class LockableRepository {
     return !!locked;
   }
 
+  static async lock(
+    logbook: DispatchDataLogbook,
+    item: Lockable,
+  ): Promise<void> {
+    const lockItem = new DispatchDataLogbookEntry();
+    lockItem.logbook = logbook;
+    lockItem.uuid = item.uuid;
+    await AppDataSource.manager.save(lockItem);
+  }
+
   static async unlock(item: Lockable): Promise<void> {
     await AppDataSource.manager.delete(DispatchDataLogbookEntry, {
       where: { uuid: item.uuid },
     });
   }
-}
-
-export async function isLocked<T extends { uuid: string }>(
-  item: T,
-): Promise<boolean> {
-  const locked = await AppDataSource.manager.findOne(DispatchDataLogbookEntry, {
-    where: { uuid: item.uuid },
-  });
-  return !!locked;
 }
