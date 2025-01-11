@@ -8,6 +8,7 @@ export class LockableRepository {
       DispatchDataLogbookEntry,
       {
         where: { uuid: item.uuid },
+        cache: true,
       },
     );
     return !!locked;
