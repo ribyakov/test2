@@ -8,7 +8,9 @@ import { TimeJournalController } from "./controllers/TimeJournalController";
 import {
   CargoOperationJournal,
   ConditionJournal,
+  ConditionJournalGeo,
   TimeJournal,
+  TimeJournalEntry,
 } from "./entities";
 import { MasterdataController } from "./controllers/MasterdataController";
 import { ConditionJournalController } from "./controllers/ConditionJournalController";
@@ -65,23 +67,35 @@ app.on("window-all-closed", function () {
 });
 
 const connectApi = (ipcMain: IpcMain) => {
-  ipcMain.handle("voyage/segments", async (_, id: number) => {
+  ipcMain.handle("voyage/get-segments", async (_, id: number) => {
     const controller = new VoyageController();
     return controller.segments(id);
   });
 
-  ipcMain.handle("timeJournal/getBySegmentId", async (_, segmentId: number) => {
-    const controller = new TimeJournalController();
-    return controller.getBySegmentId(segmentId);
-  });
+  ipcMain.handle(
+    "time-journal/get-by-segment-id",
+    async (_, segmentId: number) => {
+      const controller = new TimeJournalController();
+      return controller.getBySegmentId(segmentId);
+    },
+  );
 
-  ipcMain.handle("timeJournal/save", async (_, journal: TimeJournal) => {
+  ipcMain.handle("time-journal/save", async (_, journal: TimeJournal) => {
     const controller = new TimeJournalController();
     return controller.save(journal);
   });
 
   ipcMain.handle(
-    "conditionJournal/getBySegmentId",
+    "time-journal/delete-item",
+    async (_, entry: TimeJournalEntry) => {
+      const controller = new TimeJournalController();
+      console.log("entry", entry);
+      return controller.deleteEntry(entry);
+    },
+  );
+
+  ipcMain.handle(
+    "condition-journal/get-by-segment-id",
     async (_, segmentId: number) => {
       const controller = new ConditionJournalController();
       return controller.getBySegmentId(segmentId);
@@ -89,7 +103,7 @@ const connectApi = (ipcMain: IpcMain) => {
   );
 
   ipcMain.handle(
-    "conditionJournal/save",
+    "condition-journal/save",
     async (_, journal: ConditionJournal) => {
       const controller = new ConditionJournalController();
       return controller.save(journal);
@@ -97,7 +111,15 @@ const connectApi = (ipcMain: IpcMain) => {
   );
 
   ipcMain.handle(
-    "cargoOperationJournal/getBySegmentId",
+    "condition-journal/delete-item",
+    async (_, entry: ConditionJournalGeo) => {
+      const controller = new ConditionJournalController();
+      return controller.deleteEntry(entry);
+    },
+  );
+
+  ipcMain.handle(
+    "condition-operation-journal/get-by-segment-id",
     async (_, segmentId: number) => {
       const controller = new CargoOperationJournalController();
       return controller.getBySegmentId(segmentId);
@@ -105,7 +127,7 @@ const connectApi = (ipcMain: IpcMain) => {
   );
 
   ipcMain.handle(
-    "cargoOperationJournal/save",
+    "condition-operation-journal/save",
     async (_, journal: CargoOperationJournal) => {
       const controller = new CargoOperationJournalController();
       return controller.save(journal);
