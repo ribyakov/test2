@@ -1,7 +1,6 @@
 {
-  "name": "electron-vue-template",
-  "version": "0.1.0",
-  "description": "A minimal Electron + Vue application",
+  "name": "disp-app",
+  "description": "",
   "main": "build/main/main.js",
   "scripts": {
     "dev": "node scripts/dev-server.js",
@@ -15,10 +14,10 @@
     "migrate": "npm run typeorm migration:run -- -d src/main/typeorm.config.ts",
     "revert": "npm run typeorm migration:revert -- -d src/main/typeorm.config.ts"
   },
-  "repository": "https://github.com/deluze/electron-vue-template",
+  "repository": "https://github.com/spacecvb/test2",
   "author": {
-    "name": "Deluze",
-    "url": "https://github.com/Deluze"
+    "name": "spacecvb",
+    "url": "https://github.com/spacecvb"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
