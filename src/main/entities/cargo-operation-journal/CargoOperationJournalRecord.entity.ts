@@ -2,9 +2,10 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { CargoOperationJournal } from "./CargoOperationJournal.entity";
 import { CargoType } from "../masterdata/CargoType.entity";
 import { CargoOperationType } from "./CargoOperationType";
+import { Lockable } from "../Lockable";
 
 @Entity()
-export class CargoOperationJournalRecord {
+export class CargoOperationJournalRecord extends Lockable {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,9 +20,6 @@ export class CargoOperationJournalRecord {
 
   @Column()
   value: number;
-
-  @Column()
-  uuid: string;
 
   @ManyToOne(() => CargoOperationJournal, (journal) => journal.entries, {
     onDelete: "CASCADE",

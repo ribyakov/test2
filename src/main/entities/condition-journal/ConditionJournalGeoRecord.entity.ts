@@ -13,7 +13,7 @@ import { ConditionJournalRecord } from "./ConditionJournalRecord.entity";
 import { Lockable } from "../Lockable";
 
 @Entity()
-export class ConditionJournalGeoRecord implements Lockable {
+export class ConditionJournalGeoRecord extends Lockable {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -25,10 +25,6 @@ export class ConditionJournalGeoRecord implements Lockable {
 
   @Column()
   masked: string;
-
-  @Index({ unique: true })
-  @Column()
-  uuid: string;
 
   @ManyToOne(() => GeographicCoordinate, { nullable: false })
   @JoinColumn()

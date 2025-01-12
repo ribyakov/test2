@@ -11,7 +11,7 @@ import { TimeJournal } from "./TimeJournal.entity";
 import { Lockable } from "../Lockable";
 
 @Entity()
-export class TimeJournalRecord implements Lockable {
+export class TimeJournalRecord extends Lockable {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,10 +24,6 @@ export class TimeJournalRecord implements Lockable {
 
   @Column()
   endTime: Date;
-
-  @Index({ unique: true })
-  @Column()
-  uuid: string;
 
   @Column({ nullable: true })
   comments: string;
