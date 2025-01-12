@@ -38,7 +38,7 @@
         :label="$t('CargoOperationJournal.list.table.column.value')"
         :label-width="formLabelWidth"
       >
-        <el-input-number v-model="form.value" />
+        <el-input-number v-model="form.value" :precision="3" />
       </el-form-item>
     </el-form>
 

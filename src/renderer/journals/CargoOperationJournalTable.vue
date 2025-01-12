@@ -21,16 +21,28 @@
     />
     <el-table-column fixed="right" width="100">
       <template #default="{ row }: { row: CargoOperationJournalRecord }">
-        <el-button link :icon="Edit" type="primary" @click="edit(row)">
-        </el-button>
-        <BaseDeletePopConfirm :confirm="() => emit('delete', row)" />
+        <template v-if="row.locked">
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            :content="$t('common.locked')"
+            placement="top"
+          >
+            <el-button link :icon="Lock" type="primary" disabled />
+          </el-tooltip>
+        </template>
+        <template v-else>
+          <el-button link :icon="Edit" type="primary" @click="edit(row)">
+          </el-button>
+          <BaseDeletePopConfirm :confirm="() => emit('delete', row)" />
+        </template>
       </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script setup lang="ts">
-import { Edit, Plus } from "@element-plus/icons-vue";
+import { Edit, Lock, Plus } from "@element-plus/icons-vue";
 import BaseDeletePopConfirm from "../base-components/BaseDeletePopConfirm.vue";
 import { CargoOperationJournalRecord } from "../../main/entities";
 

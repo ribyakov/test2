@@ -21,6 +21,7 @@ export class LockableRepository {
     const lockItem = new DispatchDataLogbookRecord();
     lockItem.logbook = logbook;
     lockItem.uuid = item.uuid;
+    lockItem.breed = item.constructor.name;
     await AppDataSource.manager.save(lockItem);
   }
 

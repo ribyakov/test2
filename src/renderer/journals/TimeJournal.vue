@@ -85,19 +85,23 @@ const journal = ref<TimeJournal | null>();
 
 const entries = computed(() => journal.value?.entries || []);
 
+const load = async () => {
+  journal.value = await window.api.timeJournal.getBySegmentId(
+    props.segment!.id,
+  );
+  console.log(journal.value);
+};
+
 watch(
   () => props.segment,
   () => {
     if (!props.segment) return;
     load();
   },
+  {
+    immediate: true,
+  },
 );
-
-const load = async () => {
-  journal.value = await window.api.timeJournal.getBySegmentId(
-    props.segment!.id,
-  );
-};
 
 const form = ref<InstanceType<typeof TimeJournalForm> | null>(null);
 

@@ -1,16 +1,21 @@
 import { contextBridge, ipcRenderer } from "electron";
 import {
   CargoOperationJournal,
+  CargoOperationJournalRecord,
   ConditionJournal,
   ConditionJournalGeoRecord,
   TimeJournal,
   TimeJournalRecord,
+  Voyage,
+  VoyageSegment,
 } from "./entities";
 import { AllMasterdata } from "./entities/masterdata";
 
 const API = {
   voyage: {
-    segments: (id: number) => ipcRenderer.invoke("voyage/get-segments", id),
+    segments: (id: number): Promise<VoyageSegment[]> =>
+      ipcRenderer.invoke("voyage/get-segments", id),
+    getAll: (): Promise<Voyage[]> => ipcRenderer.invoke("voyage/get-all"),
   },
   timeJournal: {
     getBySegmentId: (segmentId: number): Promise<TimeJournal | undefined> =>
@@ -44,6 +49,12 @@ const API = {
       ),
     save: async (journal: CargoOperationJournal) => {
       await ipcRenderer.invoke("condition-operation-journal/save", journal);
+    },
+    deleteEntry: async (journal: CargoOperationJournalRecord) => {
+      await ipcRenderer.invoke(
+        "condition-operation-journal/delete-item",
+        journal,
+      );
     },
   },
   masterdata: {

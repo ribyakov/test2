@@ -6,6 +6,7 @@ import App from "./App.vue";
 import moment from "moment";
 import { createPinia } from "pinia";
 import { createI18n } from "vue-i18n";
+import router from "./router/router";
 import messagesRu from "./messages/messages.ru.json";
 import { useMasterdata } from "./store/useMasterdata";
 
@@ -25,5 +26,6 @@ app.config.globalProperties.$moment = moment;
 app.use(ElementPlus);
 app.use(i18n);
 app.use(pinia);
+app.use(router);
 app.mount("#app");
 void useMasterdata().get();

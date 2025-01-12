@@ -7,6 +7,7 @@ import { VoyageController } from "./controllers/VoyageController";
 import { TimeJournalController } from "./controllers/TimeJournalController";
 import {
   CargoOperationJournal,
+  CargoOperationJournalRecord,
   ConditionJournal,
   ConditionJournalGeoRecord,
   TimeJournal,
@@ -72,6 +73,11 @@ const connectApi = (ipcMain: IpcMain) => {
     return controller.segments(id);
   });
 
+  ipcMain.handle("voyage/get-all", async () => {
+    const controller = new VoyageController();
+    return controller.getAll();
+  });
+
   ipcMain.handle(
     "time-journal/get-by-segment-id",
     async (_, segmentId: number) => {
@@ -130,6 +136,14 @@ const connectApi = (ipcMain: IpcMain) => {
     async (_, journal: CargoOperationJournal) => {
       const controller = new CargoOperationJournalController();
       return controller.save(journal);
+    },
+  );
+
+  ipcMain.handle(
+    "condition-operation-journal/delete-item",
+    async (_, entry: CargoOperationJournalRecord) => {
+      const controller = new CargoOperationJournalController();
+      return controller.deleteEntry(entry);
     },
   );
 

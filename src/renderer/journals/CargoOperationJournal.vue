@@ -51,19 +51,22 @@ const unLoadingEntries = computed(() =>
   ),
 );
 
+const load = async () => {
+  journal.value = await window.api.cargoOperationJournal.getBySegmentId(
+    props.segment!.id,
+  );
+};
+
 watch(
   () => props.segment,
   () => {
     if (!props.segment) return;
     load();
   },
+  {
+    immediate: true,
+  },
 );
-
-const load = async () => {
-  journal.value = await window.api.cargoOperationJournal.getBySegmentId(
-    props.segment!.id,
-  );
-};
 
 const edit = (row: CargoOperationJournalRecord) => {
   form.value?.show(row);
@@ -85,10 +88,7 @@ const onItemSave = async (entry: CargoOperationJournalRecord) => {
 };
 
 const deleteEntry = async (entry: CargoOperationJournalRecord) => {
-  journal.value!.entries = journal.value!.entries.filter(
-    (e) => e.id !== entry.id,
-  );
-  await window.api.cargoOperationJournal.save(cloneDeep(journal.value!));
+  await window.api.cargoOperationJournal.deleteEntry(cloneDeep(entry));
   void load();
 };
 </script>

@@ -26,6 +26,8 @@ import { CargoOperationJournalRepository } from "../repositories/CargoOperationJ
 import { AppDataSource } from "../typeorm.config";
 import { CargoOperationType } from "../entities/cargo-operation-journal/CargoOperationType";
 import { DispatchDataLogbookRecord } from "../entities/dispatch-data-logbook/DispatchDataLogbookRecord.entity";
+import { DispatchDataLogbookRepository } from "../repositories/DispatchDataLogbookRepository";
+import { LockableRepository } from "../repositories/LockableRepository";
 
 export async function createVoyage(dataSource: DataSource) {
   let ship = new Ship();
@@ -241,16 +243,19 @@ export async function createVoyage(dataSource: DataSource) {
 
   const dispatchDataLogbook = new DispatchDataLogbook();
 
-  const ddle1 = new DispatchDataLogbookRecord();
-  ddle1.uuid = te1.uuid;
+  // const ddle1 = new DispatchDataLogbookRecord();
+  // ddle1.item = te1;
+  //
+  // const ddle2 = new DispatchDataLogbookRecord();
+  // ddle2.item = cjp2;
+  //
+  // const ddle3 = new DispatchDataLogbookRecord();
+  // ddle3.item = coje2;
+  // dispatchDataLogbook.entries = [ddle1, ddle2, ddle3];
+  //
+  await DispatchDataLogbookRepository.save(dispatchDataLogbook);
 
-  const ddle2 = new DispatchDataLogbookRecord();
-  ddle2.uuid = cjp2.uuid;
-
-  console.log(te1.id);
-  console.log(cjp2.id);
-
-  dispatchDataLogbook.entries = [ddle1, ddle2];
-
-  await dataSource.manager.save(dispatchDataLogbook);
+  await LockableRepository.lock(dispatchDataLogbook, te1);
+  await LockableRepository.lock(dispatchDataLogbook, cjp2);
+  await LockableRepository.lock(dispatchDataLogbook, coje2);
 }

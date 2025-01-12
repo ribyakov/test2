@@ -36,19 +36,22 @@ const props = defineProps<{
 const journal = ref<ConditionJournal>();
 const selectedRow = ref<ConditionJournalGeoRecord>();
 
+const load = async () => {
+  journal.value = await window.api.conditionJournal.getBySegmentId(
+    props.segment!.id,
+  );
+};
+
 watch(
   () => props.segment,
   () => {
     if (!props.segment) return;
     load();
   },
+  {
+    immediate: true,
+  },
 );
-
-const load = async () => {
-  journal.value = await window.api.conditionJournal.getBySegmentId(
-    props.segment!.id,
-  );
-};
 
 const onPointChange = async (point: ConditionJournalGeoRecord) => {
   if (!Array.isArray(journal.value!.points)) {

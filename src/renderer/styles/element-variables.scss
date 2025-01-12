@@ -2,14 +2,25 @@
   --el-font-family: 'Roboto';
 }
 
-/* Optional: Force all Element Plus components to use the custom font */
-[class^="el-"],
-[class*=" el-"] {
-  font-family: var(--el-font-family), serif;
-}
+#disp {
 
-.el-table.hover {
-  tr:hover {
-    cursor: pointer;
+  /* Optional: Force all Element Plus components to use the custom font */
+  [class^="el-"],
+  [class*=" el-"] {
+    font-family: var(--el-font-family), serif;
+  }
+
+  .el-header {
+    --el-header-height: auto;
+    --el-header-padding: 20px 20px 0;
+  }
+
+  .el-table.hover {
+    tr:hover {
+      cursor: pointer;
+    }
   }
 }
+
+
+

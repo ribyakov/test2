@@ -1,5 +1,9 @@
-import { CargoOperationJournal } from "../entities";
+import {
+  CargoOperationJournal,
+  CargoOperationJournalRecord,
+} from "../entities";
 import { CargoOperationJournalRepository } from "../repositories/CargoOperationJournalRepository";
+import { AppDataSource } from "../typeorm.config";
 
 export class CargoOperationJournalController {
   getBySegmentId(segmentId: number): Promise<CargoOperationJournal | null> {
@@ -10,5 +14,9 @@ export class CargoOperationJournalController {
 
   async save(journal: CargoOperationJournal): Promise<void> {
     await CargoOperationJournalRepository.save(journal);
+  }
+
+  async deleteEntry(entry: CargoOperationJournalRecord): Promise<void> {
+    await AppDataSource.manager.remove(CargoOperationJournalRecord, entry);
   }
 }
