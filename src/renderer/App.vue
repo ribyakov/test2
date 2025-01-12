@@ -1,9 +1,6 @@
 <template>
   <el-config-provider :locale="locale">
     <el-container id="disp">
-      <el-header>
-        <Header />
-      </el-header>
       <el-main>
         <RouterView v-slot="{ Component, route }">
           <Transition name="fade" mode="out-in">
@@ -18,7 +15,6 @@
 <script setup lang="ts">
 import { ElConfigProvider } from "element-plus";
 import locale from "element-plus/es/locale/lang/ru";
-import Header from "./Header.vue";
 </script>
 
 <style lang="scss" scoped>

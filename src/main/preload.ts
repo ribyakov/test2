@@ -15,6 +15,8 @@ const API = {
   voyage: {
     segments: (id: number): Promise<VoyageSegment[]> =>
       ipcRenderer.invoke("voyage/get-segments", id),
+    get: (id: number): Promise<Voyage | undefined> =>
+      ipcRenderer.invoke("voyage/get", id),
     getAll: (): Promise<Voyage[]> => ipcRenderer.invoke("voyage/get-all"),
   },
   timeJournal: {

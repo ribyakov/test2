@@ -78,6 +78,11 @@ const connectApi = (ipcMain: IpcMain) => {
     return controller.getAll();
   });
 
+  ipcMain.handle("voyage/get", async (_, id: number) => {
+    const controller = new VoyageController();
+    return controller.get(id);
+  });
+
   ipcMain.handle(
     "time-journal/get-by-segment-id",
     async (_, segmentId: number) => {

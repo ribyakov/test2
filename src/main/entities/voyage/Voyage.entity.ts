@@ -2,8 +2,8 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Ship } from "../masterdata/Ship.entity";
@@ -19,7 +19,7 @@ export class Voyage {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Ship)
+  @ManyToOne(() => Ship, { eager: true })
   @JoinColumn()
   ship: Ship;
 
@@ -38,11 +38,11 @@ export class Voyage {
   @Column()
   charterer: string;
 
-  @OneToOne(() => CheckPoint)
+  @ManyToOne(() => CheckPoint, { eager: true })
   @JoinColumn()
   startPoint: CheckPoint;
 
-  @OneToOne(() => CheckPoint)
+  @ManyToOne(() => CheckPoint, { eager: true })
   @JoinColumn()
   finishPoint: CheckPoint;
 
