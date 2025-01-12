@@ -22,6 +22,14 @@ const config = defineConfig({
     jsxFactory: "h",
     jsxFragment: "Fragment",
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler",
+        importers: [],
+      },
+    },
+  },
 });
 
 module.exports = config;
