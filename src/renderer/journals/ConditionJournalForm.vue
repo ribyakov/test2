@@ -44,7 +44,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
-import { ConditionJournalGeo } from "../../main/entities";
+import { ConditionJournalGeoRecord } from "../../main/entities";
 import { required } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import CoordinateInput from "../base-components/CoordinateInput.vue";
@@ -72,7 +72,7 @@ type NullableProperties<T> = {
 
 let currentItem = createEmptyItem();
 
-function createEmptyItem(): NullableProperties<ConditionJournalGeo> {
+function createEmptyItem(): NullableProperties<ConditionJournalGeoRecord> {
   return {
     id: null,
     date: null,
@@ -93,7 +93,7 @@ const form = reactive<Form>({
 
 const v$ = useVuelidate<Form>(rules, form);
 
-const show = (entry?: ConditionJournalGeo) => {
+const show = (entry?: ConditionJournalGeoRecord) => {
   if (!entry) {
     currentItem = createEmptyItem();
     currentItem.date = new Date();
@@ -122,11 +122,11 @@ const save = () => {
   currentItem.masked = form.masked;
   currentItem.uuid ??= uuidv4();
 
-  emit("save", currentItem as ConditionJournalGeo);
+  emit("save", currentItem as ConditionJournalGeoRecord);
 };
 
 const emit = defineEmits<{
-  (e: "save", entry: ConditionJournalGeo): void;
+  (e: "save", entry: ConditionJournalGeoRecord): void;
 }>();
 
 const onCoordinateComplete = (normalized: string, masked: string) => {

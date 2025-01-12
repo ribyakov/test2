@@ -22,7 +22,7 @@
 import ConditionJournalGeos from "./ConditionJournalGeos.vue";
 import {
   ConditionJournal,
-  ConditionJournalGeo,
+  ConditionJournalGeoRecord,
   VoyageSegment,
 } from "../../main/entities";
 import ConditionJournalIndicators from "./ConditionJournalIndicators.vue";
@@ -34,7 +34,7 @@ const props = defineProps<{
 }>();
 
 const journal = ref<ConditionJournal>();
-const selectedRow = ref<ConditionJournalGeo>();
+const selectedRow = ref<ConditionJournalGeoRecord>();
 
 watch(
   () => props.segment,
@@ -50,7 +50,7 @@ const load = async () => {
   );
 };
 
-const onPointChange = async (point: ConditionJournalGeo) => {
+const onPointChange = async (point: ConditionJournalGeoRecord) => {
   if (!Array.isArray(journal.value!.points)) {
     journal.value!.points = [];
   }
@@ -70,17 +70,17 @@ const onPointChange = async (point: ConditionJournalGeo) => {
   }
 };
 
-const onIndicatorChange = async (point: ConditionJournalGeo) => {
+const onIndicatorChange = async (point: ConditionJournalGeoRecord) => {
   point.indicators = point.indicators.filter((item) => item.value);
   await window.api.conditionJournal.save(cloneDeep(journal.value!));
 };
 
-const onPointDelete = async (point: ConditionJournalGeo) => {
+const onPointDelete = async (point: ConditionJournalGeoRecord) => {
   await window.api.conditionJournal.deleteEntry(cloneDeep(point));
   void load();
 };
 
-const onCurrentPointChange = async (point: ConditionJournalGeo) => {
+const onCurrentPointChange = async (point: ConditionJournalGeoRecord) => {
   selectedRow.value = point;
 };
 </script>

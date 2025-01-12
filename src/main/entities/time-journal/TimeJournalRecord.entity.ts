@@ -11,7 +11,7 @@ import { TimeJournal } from "./TimeJournal.entity";
 import { Lockable } from "../Lockable";
 
 @Entity()
-export class TimeJournalEntry implements Lockable {
+export class TimeJournalRecord implements Lockable {
   @PrimaryGeneratedColumn()
   id: number;
 

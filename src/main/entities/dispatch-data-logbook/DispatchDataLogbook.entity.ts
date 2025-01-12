@@ -1,14 +1,14 @@
 import { Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { DispatchDataLogbookEntry } from "./DispatchDataLogbookEntry.entity";
+import { DispatchDataLogbookRecord } from "./DispatchDataLogbookRecord.entity";
 
 @Entity()
 export class DispatchDataLogbook {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(() => DispatchDataLogbookEntry, (entry) => entry.logbook, {
+  @OneToMany(() => DispatchDataLogbookRecord, (entry) => entry.logbook, {
     eager: true,
     cascade: true,
   })
-  entries: DispatchDataLogbookEntry[];
+  entries: DispatchDataLogbookRecord[];
 }

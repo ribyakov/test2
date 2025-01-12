@@ -55,7 +55,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
-import { CargoOperationJournalEntry, CargoType } from "../../main/entities";
+import { CargoOperationJournalRecord, CargoType } from "../../main/entities";
 import { required } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import { v4 as uuidv4 } from "uuid";
@@ -89,7 +89,7 @@ type NullableProperties<T> = {
 
 let currentItem = createEmptyItem();
 
-function createEmptyItem(): NullableProperties<CargoOperationJournalEntry> {
+function createEmptyItem(): NullableProperties<CargoOperationJournalRecord> {
   return {
     id: null,
     type: null,
@@ -110,7 +110,7 @@ const form = reactive<Form>({
 const v$ = useVuelidate<Form>(rules, form);
 
 const show = (
-  entry: CargoOperationJournalEntry | null,
+  entry: CargoOperationJournalRecord | null,
   type?: CargoOperationType,
 ) => {
   if (!entry) {
@@ -142,11 +142,11 @@ const save = () => {
   currentItem.value = form.value as number;
   currentItem.uuid ??= uuidv4();
 
-  emit("save", currentItem as CargoOperationJournalEntry);
+  emit("save", currentItem as CargoOperationJournalRecord);
 };
 
 const emit = defineEmits<{
-  (e: "save", entry: CargoOperationJournalEntry): void;
+  (e: "save", entry: CargoOperationJournalRecord): void;
 }>();
 
 defineExpose({ show, hide });

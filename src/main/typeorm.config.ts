@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm";
 import { entities } from "./entities";
 import { join } from "path";
-import { TimeJournalEntrySubscriber } from "./entities/TimeJournalEntrySubscriber";
-import { ConditionJournalGeoSubscriber } from "./entities/ConditionJournalGeoSubscriber";
+import { TimeJournalRecordSubscriber } from "./subscribers/TimeJournalRecordSubscriber";
+import { ConditionJournalGeoRecordSubscriber } from "./subscribers/ConditionJournalGeoRecordSubscriber";
 
 export const AppDataSource = new DataSource({
   type: "sqlite",
@@ -12,5 +12,8 @@ export const AppDataSource = new DataSource({
   entities,
   migrations:
     process.env.npm_lifecycle_event == "typeorm" ? ["**/migrations/*.ts"] : [],
-  subscribers: [TimeJournalEntrySubscriber, ConditionJournalGeoSubscriber],
+  subscribers: [
+    TimeJournalRecordSubscriber,
+    ConditionJournalGeoRecordSubscriber,
+  ],
 });

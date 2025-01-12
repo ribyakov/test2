@@ -8,7 +8,7 @@ import {
 import { DispatchDataLogbook } from "./DispatchDataLogbook.entity";
 
 @Entity()
-export class DispatchDataLogbookEntry {
+export class DispatchDataLogbookRecord {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -1,4 +1,4 @@
-import { TimeJournal, TimeJournalEntry } from "../entities";
+import { TimeJournal, TimeJournalRecord } from "../entities";
 import { TimeJournalRepository } from "../repositories/TimeJournalRepository";
 import { AppDataSource } from "../typeorm.config";
 
@@ -13,7 +13,7 @@ export class TimeJournalController {
     await TimeJournalRepository.save(journal);
   }
 
-  async deleteEntry(entry: TimeJournalEntry): Promise<void> {
-    await AppDataSource.manager.remove(TimeJournalEntry, entry);
+  async deleteEntry(entry: TimeJournalRecord): Promise<void> {
+    await AppDataSource.manager.remove(TimeJournalRecord, entry);
   }
 }

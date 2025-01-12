@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 import { VoyageSegment } from "../voyage/VoyageSegment.entity";
 import { TimeZone } from "../masterdata/TimeZone.entity";
-import { TimeJournalEntry } from "./TimeJournalEntry.entity";
+import { TimeJournalRecord } from "./TimeJournalRecord.entity";
 
 @Entity()
 export class TimeJournal {
@@ -33,9 +33,9 @@ export class TimeJournal {
   @Column({ nullable: true })
   comments: string;
 
-  @OneToMany(() => TimeJournalEntry, (entry) => entry.journal, {
+  @OneToMany(() => TimeJournalRecord, (entry) => entry.journal, {
     eager: true,
     cascade: true,
   })
-  entries: TimeJournalEntry[];
+  entries: TimeJournalRecord[];
 }

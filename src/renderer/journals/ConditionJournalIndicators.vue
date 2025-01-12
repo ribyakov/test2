@@ -19,8 +19,8 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import {
-  ConditionJournalGeo,
-  ConditionJournalIndicator,
+  ConditionJournalGeoRecord,
+  ConditionJournalRecord,
   ShipConditionIndicator,
 } from "../../main/entities";
 import { useMasterdata } from "../store/useMasterdata";
@@ -29,7 +29,7 @@ import { storeToRefs } from "pinia";
 const { shipConditionIndicators } = storeToRefs(useMasterdata());
 
 const props = defineProps<{
-  point?: ConditionJournalGeo;
+  point?: ConditionJournalGeoRecord;
 }>();
 
 watch(
@@ -70,12 +70,12 @@ const update = (indicator: ShipConditionIndicator, value: number) => {
     props.point?.indicators.push({
       indicator,
       value: value,
-    } as ConditionJournalIndicator);
+    } as ConditionJournalRecord);
   }
   emit("change", props.point!);
 };
 const emit = defineEmits<{
-  (e: "change", row: ConditionJournalGeo): void;
+  (e: "change", row: ConditionJournalGeoRecord): void;
 }>();
 </script>
 

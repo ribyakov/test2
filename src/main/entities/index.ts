@@ -19,15 +19,15 @@ import { VoyageWaterRemaining } from "./voyage/VoyageWaterRemaining.entity";
 import { VoyageSegment } from "./voyage/VoyageSegment.entity";
 import { VoyageCheckPoint } from "./voyage/VoyageCheckPoint.entity";
 import { TimeJournal } from "./time-journal/TimeJournal.entity";
-import { TimeJournalEntry } from "./time-journal/TimeJournalEntry.entity";
+import { TimeJournalRecord } from "./time-journal/TimeJournalRecord.entity";
 import { TimeZone } from "./masterdata/TimeZone.entity";
 import { ConditionJournal } from "./condition-journal/ConditionJournal.entity";
-import { ConditionJournalGeo } from "./condition-journal/ConditionJournalGeo.entity";
-import { ConditionJournalIndicator } from "./condition-journal/ConditionJournalIndicator.entity";
+import { ConditionJournalGeoRecord } from "./condition-journal/ConditionJournalGeoRecord.entity";
+import { ConditionJournalRecord } from "./condition-journal/ConditionJournalRecord.entity";
 import { CargoOperationJournal } from "./cargo-operation-journal/CargoOperationJournal.entity";
-import { CargoOperationJournalEntry } from "./cargo-operation-journal/CargoOperationJournalEntry.entity";
+import { CargoOperationJournalRecord } from "./cargo-operation-journal/CargoOperationJournalRecord.entity";
 import { DispatchDataLogbook } from "./dispatch-data-logbook/DispatchDataLogbook.entity";
-import { DispatchDataLogbookEntry } from "./dispatch-data-logbook/DispatchDataLogbookEntry.entity";
+import { DispatchDataLogbookRecord } from "./dispatch-data-logbook/DispatchDataLogbookRecord.entity";
 
 export * from "./masterdata/CargoType.entity";
 export * from "./GeographicCoordinate.entity";
@@ -51,25 +51,25 @@ export * from "./voyage/VoyageWaterRemaining.entity";
 export * from "./voyage/VoyageSegment.entity";
 export * from "./voyage/VoyageCheckPoint.entity";
 export * from "./time-journal/TimeJournal.entity";
-export * from "./time-journal/TimeJournalEntry.entity";
+export * from "./time-journal/TimeJournalRecord.entity";
 export * from "./condition-journal/ConditionJournal.entity";
-export * from "./condition-journal/ConditionJournalGeo.entity";
-export * from "./condition-journal/ConditionJournalIndicator.entity";
+export * from "./condition-journal/ConditionJournalGeoRecord.entity";
+export * from "./condition-journal/ConditionJournalRecord.entity";
 export * from "./cargo-operation-journal/CargoOperationJournal.entity";
-export * from "./cargo-operation-journal/CargoOperationJournalEntry.entity";
+export * from "./cargo-operation-journal/CargoOperationJournalRecord.entity";
 export * from "./dispatch-data-logbook/DispatchDataLogbook.entity";
-export * from "./dispatch-data-logbook/DispatchDataLogbookEntry.entity";
+export * from "./dispatch-data-logbook/DispatchDataLogbookRecord.entity";
 
 export const entities = [
   DispatchDataLogbook,
-  DispatchDataLogbookEntry,
+  DispatchDataLogbookRecord,
   CargoOperationJournal,
-  CargoOperationJournalEntry,
+  CargoOperationJournalRecord,
   ConditionJournal,
-  ConditionJournalGeo,
-  ConditionJournalIndicator,
+  ConditionJournalGeoRecord,
+  ConditionJournalRecord,
   TimeJournal,
-  TimeJournalEntry,
+  TimeJournalRecord,
   VoyageCheckPoint,
   VoyageSegment,
   VoyageWaterRemaining,

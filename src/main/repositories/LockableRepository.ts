@@ -1,11 +1,11 @@
 import { AppDataSource } from "../typeorm.config";
-import { DispatchDataLogbook, DispatchDataLogbookEntry } from "../entities";
+import { DispatchDataLogbook, DispatchDataLogbookRecord } from "../entities";
 import { Lockable } from "../entities/Lockable";
 
 export class LockableRepository {
   static async isLocked(item: Lockable): Promise<boolean> {
     const locked = await AppDataSource.manager.findOne(
-      DispatchDataLogbookEntry,
+      DispatchDataLogbookRecord,
       {
         where: { uuid: item.uuid },
         cache: true,
@@ -18,14 +18,14 @@ export class LockableRepository {
     logbook: DispatchDataLogbook,
     item: Lockable,
   ): Promise<void> {
-    const lockItem = new DispatchDataLogbookEntry();
+    const lockItem = new DispatchDataLogbookRecord();
     lockItem.logbook = logbook;
     lockItem.uuid = item.uuid;
     await AppDataSource.manager.save(lockItem);
   }
 
   static async unlock(item: Lockable): Promise<void> {
-    await AppDataSource.manager.delete(DispatchDataLogbookEntry, {
+    await AppDataSource.manager.delete(DispatchDataLogbookRecord, {
       where: { uuid: item.uuid },
     });
   }

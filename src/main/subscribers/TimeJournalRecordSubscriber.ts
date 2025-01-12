@@ -4,30 +4,30 @@ import {
   RemoveEvent,
   UpdateEvent,
 } from "typeorm";
-import { TimeJournalEntry } from "./time-journal/TimeJournalEntry.entity";
+import { TimeJournalRecord } from "../entities/time-journal/TimeJournalRecord.entity";
 import { LockableRepository } from "../repositories/LockableRepository";
 
 @EventSubscriber()
-export class TimeJournalEntrySubscriber implements EntitySubscriberInterface {
+export class TimeJournalRecordSubscriber implements EntitySubscriberInterface {
   listenTo() {
-    return TimeJournalEntry;
+    return TimeJournalRecord;
   }
 
   /**
    * Called after entity is loaded.
    */
-  async afterLoad(entity: TimeJournalEntry) {
+  async afterLoad(entity: TimeJournalRecord) {
     entity.locked = await LockableRepository.isLocked(entity);
   }
 
   /**
    * Called before entity update.
    */
-  async beforeUpdate(event: UpdateEvent<TimeJournalEntry>) {
-    const entity = event.entity as TimeJournalEntry;
+  async beforeUpdate(event: UpdateEvent<TimeJournalRecord>) {
+    const entity = event.entity as TimeJournalRecord;
     if (entity) {
       const locked = await LockableRepository.isLocked(
-        entity as TimeJournalEntry,
+        entity as TimeJournalRecord,
       );
       if (locked) {
         throw new Error("UPDATE LOCKED");
@@ -38,8 +38,8 @@ export class TimeJournalEntrySubscriber implements EntitySubscriberInterface {
   /**
    * Called before entity removal.
    */
-  async beforeRemove(event: RemoveEvent<TimeJournalEntry>) {
-    const entity = event.entity as TimeJournalEntry;
+  async beforeRemove(event: RemoveEvent<TimeJournalRecord>) {
+    const entity = event.entity as TimeJournalRecord;
     if (entity) {
       const locked = await LockableRepository.isLocked(entity);
       if (locked) {

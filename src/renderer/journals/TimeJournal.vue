@@ -43,7 +43,7 @@
       :label="$t('TimeJournal.list.table.column.comments')"
     />
     <el-table-column fixed="right" min-width="120">
-      <template #default="{ row }: { row: TimeJournalEntry }">
+      <template #default="{ row }: { row: TimeJournalRecord }">
         <template v-if="row.locked">
           <el-tooltip
             class="box-item"
@@ -71,7 +71,7 @@ import { computed, ref, watch } from "vue";
 import TimeJournalForm from "./TimeJournalForm.vue";
 import {
   TimeJournal,
-  TimeJournalEntry,
+  TimeJournalRecord,
   VoyageSegment,
 } from "../../main/entities";
 import { cloneDeep } from "lodash";
@@ -105,11 +105,11 @@ const add = () => {
   form.value?.show();
 };
 
-const edit = (row: TimeJournalEntry) => {
+const edit = (row: TimeJournalRecord) => {
   form.value?.show(row);
 };
 
-const onItemSave = async (entry: TimeJournalEntry) => {
+const onItemSave = async (entry: TimeJournalRecord) => {
   if (!Array.isArray(journal.value!.entries)) {
     journal.value!.entries = [];
   }
@@ -124,7 +124,7 @@ const onItemSave = async (entry: TimeJournalEntry) => {
   void load();
 };
 
-const deleteEntry = async (entry: TimeJournalEntry) => {
+const deleteEntry = async (entry: TimeJournalRecord) => {
   await window.api.timeJournal.deleteEntry(cloneDeep(entry));
   void load();
 };

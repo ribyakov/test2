@@ -1,17 +1,17 @@
 import {
   CargoOperationJournal,
-  CargoOperationJournalEntry,
+  CargoOperationJournalRecord,
   CargoType,
   CheckPoint,
   ConditionJournal,
-  ConditionJournalGeo,
-  ConditionJournalIndicator,
+  ConditionJournalGeoRecord,
+  ConditionJournalRecord,
   DispatchDataLogbook,
   Operation,
   Ship,
   ShipConditionIndicator,
   TimeJournal,
-  TimeJournalEntry,
+  TimeJournalRecord,
   Voyage,
   VoyageCheckPoint,
   VoyageSegment,
@@ -25,7 +25,7 @@ import { GeographicCoordinateRepository } from "../repositories/GeographicCoordi
 import { CargoOperationJournalRepository } from "../repositories/CargoOperationJournalRepository";
 import { AppDataSource } from "../typeorm.config";
 import { CargoOperationType } from "../entities/cargo-operation-journal/CargoOperationType";
-import { DispatchDataLogbookEntry } from "../entities/dispatch-data-logbook/DispatchDataLogbookEntry.entity";
+import { DispatchDataLogbookRecord } from "../entities/dispatch-data-logbook/DispatchDataLogbookRecord.entity";
 
 export async function createVoyage(dataSource: DataSource) {
   let ship = new Ship();
@@ -168,7 +168,7 @@ export async function createVoyage(dataSource: DataSource) {
   let timeJournal = new TimeJournal();
   timeJournal.segment = vs1;
 
-  const te1 = new TimeJournalEntry();
+  const te1 = new TimeJournalRecord();
   te1.operation = (await dataSource.manager.findOne(Operation, {
     where: {
       name: "Погрузка",
@@ -186,17 +186,17 @@ export async function createVoyage(dataSource: DataSource) {
   let conditionJournal = new ConditionJournal();
   conditionJournal.segment = vs1;
 
-  const cjp1 = new ConditionJournalGeo();
+  const cjp1 = new ConditionJournalGeoRecord();
   cjp1.coordinate = "12:12:12.12:N:124:24:24.24:W";
   cjp1.date = new Date();
 
-  const cjp2 = new ConditionJournalGeo();
+  const cjp2 = new ConditionJournalGeoRecord();
   cjp2.coordinate = "12:12:12.12:S:124:24:24.24:E";
   cjp2.date = new Date();
 
   conditionJournal.points = [cjp1, cjp2];
 
-  const cji1 = new ConditionJournalIndicator();
+  const cji1 = new ConditionJournalRecord();
   cji1.indicator = (await AppDataSource.manager.findOne(
     ShipConditionIndicator,
     {
@@ -215,7 +215,7 @@ export async function createVoyage(dataSource: DataSource) {
   let cargoOperationJournal = new CargoOperationJournal();
   cargoOperationJournal.segment = vs1;
 
-  const coje1 = new CargoOperationJournalEntry();
+  const coje1 = new CargoOperationJournalRecord();
   coje1.type = CargoOperationType.LOAD;
   coje1.cargoType = (await AppDataSource.manager.findOne(CargoType, {
     where: {
@@ -225,7 +225,7 @@ export async function createVoyage(dataSource: DataSource) {
 
   coje1.value = 111;
 
-  const coje2 = new CargoOperationJournalEntry();
+  const coje2 = new CargoOperationJournalRecord();
   coje2.type = CargoOperationType.UNLOAD;
   coje2.cargoType = (await AppDataSource.manager.findOne(CargoType, {
     where: {
@@ -241,10 +241,10 @@ export async function createVoyage(dataSource: DataSource) {
 
   const dispatchDataLogbook = new DispatchDataLogbook();
 
-  const ddle1 = new DispatchDataLogbookEntry();
+  const ddle1 = new DispatchDataLogbookRecord();
   ddle1.uuid = te1.uuid;
 
-  const ddle2 = new DispatchDataLogbookEntry();
+  const ddle2 = new DispatchDataLogbookRecord();
   ddle2.uuid = cjp2.uuid;
 
   console.log(te1.id);

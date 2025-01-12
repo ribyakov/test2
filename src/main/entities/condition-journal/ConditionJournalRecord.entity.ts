@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { ShipConditionIndicator } from "../masterdata/ShipConditionIndicator.entity";
-import { ConditionJournalGeo } from "./ConditionJournalGeo.entity";
+import { ConditionJournalGeoRecord } from "./ConditionJournalGeoRecord.entity";
 
 @Entity()
-export class ConditionJournalIndicator {
+export class ConditionJournalRecord {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,9 +20,9 @@ export class ConditionJournalIndicator {
   @Column()
   value: number;
 
-  @ManyToOne(() => ConditionJournalGeo, (point) => point.indicators, {
+  @ManyToOne(() => ConditionJournalGeoRecord, (point) => point.indicators, {
     onDelete: "CASCADE",
     orphanedRowAction: "delete",
   })
-  point: ConditionJournalGeo;
+  point: ConditionJournalGeoRecord;
 }

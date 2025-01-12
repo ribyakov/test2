@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { VoyageSegment } from "../voyage/VoyageSegment.entity";
-import { ConditionJournalGeo } from "./ConditionJournalGeo.entity";
+import { ConditionJournalGeoRecord } from "./ConditionJournalGeoRecord.entity";
 
 @Entity()
 export class ConditionJournal {
@@ -21,9 +21,9 @@ export class ConditionJournal {
   @Column({ nullable: true })
   comments: string;
 
-  @OneToMany(() => ConditionJournalGeo, (entry) => entry.journal, {
+  @OneToMany(() => ConditionJournalGeoRecord, (entry) => entry.journal, {
     eager: true,
     cascade: true,
   })
-  points: ConditionJournalGeo[];
+  points: ConditionJournalGeoRecord[];
 }

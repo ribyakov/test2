@@ -24,7 +24,7 @@
 import { computed, ref, watch } from "vue";
 import {
   CargoOperationJournal,
-  CargoOperationJournalEntry,
+  CargoOperationJournalRecord,
   VoyageSegment,
 } from "../../main/entities";
 import CargoOperationJournalTable from "./CargoOperationJournalTable.vue";
@@ -65,11 +65,11 @@ const load = async () => {
   );
 };
 
-const edit = (row: CargoOperationJournalEntry) => {
+const edit = (row: CargoOperationJournalRecord) => {
   form.value?.show(row);
 };
 
-const onItemSave = async (entry: CargoOperationJournalEntry) => {
+const onItemSave = async (entry: CargoOperationJournalRecord) => {
   if (!Array.isArray(journal.value!.entries)) {
     journal.value!.entries = [];
   }
@@ -84,7 +84,7 @@ const onItemSave = async (entry: CargoOperationJournalEntry) => {
   void load();
 };
 
-const deleteEntry = async (entry: CargoOperationJournalEntry) => {
+const deleteEntry = async (entry: CargoOperationJournalRecord) => {
   journal.value!.entries = journal.value!.entries.filter(
     (e) => e.id !== entry.id,
   );

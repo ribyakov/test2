@@ -1,16 +1,16 @@
 import { AppDataSource } from "../typeorm.config";
 import {
-  DispatchDataLogbookEntry,
+  DispatchDataLogbookRecord,
   TimeJournal,
-  TimeJournalEntry,
+  TimeJournalRecord,
 } from "../entities";
 import { v4 as uuidv4 } from "uuid";
 
 export const TimeJournalRepository = AppDataSource.getRepository(
   TimeJournal,
 ).extend({
-  async isLocked(entity: TimeJournalEntry) {
-    return AppDataSource.manager.findOne(DispatchDataLogbookEntry, {
+  async isLocked(entity: TimeJournalRecord) {
+    return AppDataSource.manager.findOne(DispatchDataLogbookRecord, {
       where: { id: entity.id },
     });
   },

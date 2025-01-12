@@ -9,11 +9,11 @@ import {
 } from "typeorm";
 import { ConditionJournal } from "./ConditionJournal.entity";
 import { GeographicCoordinate } from "../GeographicCoordinate.entity";
-import { ConditionJournalIndicator } from "./ConditionJournalIndicator.entity";
+import { ConditionJournalRecord } from "./ConditionJournalRecord.entity";
 import { Lockable } from "../Lockable";
 
 @Entity()
-export class ConditionJournalGeo implements Lockable {
+export class ConditionJournalGeoRecord implements Lockable {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -34,11 +34,11 @@ export class ConditionJournalGeo implements Lockable {
   @JoinColumn()
   geolocation: GeographicCoordinate;
 
-  @OneToMany(() => ConditionJournalIndicator, (entry) => entry.point, {
+  @OneToMany(() => ConditionJournalRecord, (entry) => entry.point, {
     eager: true,
     cascade: true,
   })
-  indicators: ConditionJournalIndicator[];
+  indicators: ConditionJournalRecord[];
 
   @ManyToOne(() => ConditionJournal, (journal) => journal.points, {
     onDelete: "CASCADE",

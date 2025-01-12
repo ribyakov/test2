@@ -28,7 +28,7 @@
       {{ row.masked }}
     </el-table-column>
     <el-table-column fixed="right">
-      <template #default="{ row }: { row: ConditionJournalGeo }">
+      <template #default="{ row }: { row: ConditionJournalGeoRecord }">
         <template v-if="row.locked">
           <el-tooltip
             class="box-item"
@@ -55,12 +55,15 @@
 import { Edit, Lock, Plus } from "@element-plus/icons-vue";
 import { computed, ref } from "vue";
 import ConditionJournalForm from "./ConditionJournalForm.vue";
-import { ConditionJournal, ConditionJournalGeo } from "../../main/entities";
+import {
+  ConditionJournal,
+  ConditionJournalGeoRecord,
+} from "../../main/entities";
 import BaseDeletePopConfirm from "../base-components/BaseDeletePopConfirm.vue";
 
 const props = defineProps<{
   journal?: ConditionJournal;
-  selected?: ConditionJournalGeo;
+  selected?: ConditionJournalGeoRecord;
 }>();
 
 const points = computed(() => props.journal?.points || []);
@@ -71,30 +74,30 @@ const add = () => {
   form.value?.show();
 };
 
-const edit = (row: ConditionJournalGeo) => {
+const edit = (row: ConditionJournalGeoRecord) => {
   form.value?.show(row);
 };
 
-const tableRowClassName = ({ row }: { row: ConditionJournalGeo }) => {
+const tableRowClassName = ({ row }: { row: ConditionJournalGeoRecord }) => {
   if (row === props.selected) {
     return "selected-row";
   }
   return "";
 };
 
-const onRowClick = (row: ConditionJournalGeo) => {
+const onRowClick = (row: ConditionJournalGeoRecord) => {
   emit("row-click", row);
 };
 
-const onChange = (row: ConditionJournalGeo) => {
+const onChange = (row: ConditionJournalGeoRecord) => {
   emit("change", row);
   form.value?.hide();
 };
 
 const emit = defineEmits<{
-  (e: "row-click", row: ConditionJournalGeo): void;
-  (e: "change", row: ConditionJournalGeo): void;
-  (e: "delete", row: ConditionJournalGeo): void;
+  (e: "row-click", row: ConditionJournalGeoRecord): void;
+  (e: "change", row: ConditionJournalGeoRecord): void;
+  (e: "delete", row: ConditionJournalGeoRecord): void;
 }>();
 </script>
 

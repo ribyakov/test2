@@ -8,9 +8,9 @@ import { TimeJournalController } from "./controllers/TimeJournalController";
 import {
   CargoOperationJournal,
   ConditionJournal,
-  ConditionJournalGeo,
+  ConditionJournalGeoRecord,
   TimeJournal,
-  TimeJournalEntry,
+  TimeJournalRecord,
 } from "./entities";
 import { MasterdataController } from "./controllers/MasterdataController";
 import { ConditionJournalController } from "./controllers/ConditionJournalController";
@@ -87,7 +87,7 @@ const connectApi = (ipcMain: IpcMain) => {
 
   ipcMain.handle(
     "time-journal/delete-item",
-    async (_, entry: TimeJournalEntry) => {
+    async (_, entry: TimeJournalRecord) => {
       const controller = new TimeJournalController();
       return controller.deleteEntry(entry);
     },
@@ -111,7 +111,7 @@ const connectApi = (ipcMain: IpcMain) => {
 
   ipcMain.handle(
     "condition-journal/delete-item",
-    async (_, entry: ConditionJournalGeo) => {
+    async (_, entry: ConditionJournalGeoRecord) => {
       const controller = new ConditionJournalController();
       return controller.deleteEntry(entry);
     },

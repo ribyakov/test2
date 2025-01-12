@@ -9,7 +9,7 @@ import {
   Ship,
   Tank,
   TimeJournal,
-  TimeJournalEntry,
+  TimeJournalRecord,
   Unit,
   Voyage,
   VoyageCheckPoint,
@@ -203,7 +203,7 @@ AppDataSource.initialize().then(async () => {
   let timeJournal = new TimeJournal();
   timeJournal.segment = vs1;
 
-  const tje1 = new TimeJournalEntry();
+  const tje1 = new TimeJournalRecord();
   tje1.startTime = new Date();
   tje1.endTime = new Date();
   tje1.operation = operation1;

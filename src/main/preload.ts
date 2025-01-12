@@ -2,9 +2,9 @@ import { contextBridge, ipcRenderer } from "electron";
 import {
   CargoOperationJournal,
   ConditionJournal,
-  ConditionJournalGeo,
+  ConditionJournalGeoRecord,
   TimeJournal,
-  TimeJournalEntry,
+  TimeJournalRecord,
 } from "./entities";
 import { AllMasterdata } from "./entities/masterdata";
 
@@ -18,7 +18,7 @@ const API = {
     save: async (journal: TimeJournal) => {
       await ipcRenderer.invoke("time-journal/save", journal);
     },
-    deleteEntry: async (entry: TimeJournalEntry) => {
+    deleteEntry: async (entry: TimeJournalRecord) => {
       await ipcRenderer.invoke("time-journal/delete-item", entry);
     },
   },
@@ -30,7 +30,7 @@ const API = {
     save: async (journal: ConditionJournal) => {
       await ipcRenderer.invoke("condition-journal/save", journal);
     },
-    deleteEntry: async (entry: ConditionJournalGeo) => {
+    deleteEntry: async (entry: ConditionJournalGeoRecord) => {
       await ipcRenderer.invoke("condition-journal/delete-item", entry);
     },
   },

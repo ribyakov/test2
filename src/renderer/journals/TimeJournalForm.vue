@@ -85,7 +85,7 @@
 
 <script lang="ts" setup>
 import { computed, reactive, ref } from "vue";
-import { Operation, TimeJournalEntry } from "../../main/entities";
+import { Operation, TimeJournalRecord } from "../../main/entities";
 import moment from "moment";
 import { useMasterdata } from "../store/useMasterdata";
 import { storeToRefs } from "pinia";
@@ -126,9 +126,9 @@ type NullableProperties<T> = {
   [K in keyof T]: T[K] | null;
 };
 
-let currentEntry: NullableProperties<TimeJournalEntry> = resetEntry();
+let currentEntry: NullableProperties<TimeJournalRecord> = resetEntry();
 
-function resetEntry(): NullableProperties<TimeJournalEntry> {
+function resetEntry(): NullableProperties<TimeJournalRecord> {
   return {
     id: null,
     startTime: null,
@@ -151,7 +151,7 @@ const form = reactive<Form>({
 
 const v$ = useVuelidate<Form>(rules, form);
 
-const show = (entry?: TimeJournalEntry) => {
+const show = (entry?: TimeJournalRecord) => {
   let date = moment();
   v$.value.$reset();
 
@@ -204,11 +204,11 @@ const save = () => {
     .add(endTime.seconds(), "seconds")
     .toDate();
 
-  emit("save", currentEntry as TimeJournalEntry);
+  emit("save", currentEntry as TimeJournalRecord);
 };
 
 const emit = defineEmits<{
-  (e: "save", entry: TimeJournalEntry): void;
+  (e: "save", entry: TimeJournalRecord): void;
 }>();
 defineExpose({ show, hide });
 </script>

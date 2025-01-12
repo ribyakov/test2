@@ -4,7 +4,7 @@ import { CargoType } from "../masterdata/CargoType.entity";
 import { CargoOperationType } from "./CargoOperationType";
 
 @Entity()
-export class CargoOperationJournalEntry {
+export class CargoOperationJournalRecord {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { VoyageSegment } from "../voyage/VoyageSegment.entity";
-import { CargoOperationJournalEntry } from "./CargoOperationJournalEntry.entity";
+import { CargoOperationJournalRecord } from "./CargoOperationJournalRecord.entity";
 
 @Entity()
 export class CargoOperationJournal {
@@ -21,9 +21,9 @@ export class CargoOperationJournal {
   @Column({ nullable: true })
   comments: string;
 
-  @OneToMany(() => CargoOperationJournalEntry, (entry) => entry.journal, {
+  @OneToMany(() => CargoOperationJournalRecord, (entry) => entry.journal, {
     eager: true,
     cascade: true,
   })
-  entries: CargoOperationJournalEntry[];
+  entries: CargoOperationJournalRecord[];
 }
