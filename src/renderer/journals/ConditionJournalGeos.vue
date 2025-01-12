@@ -33,7 +33,7 @@
           <el-tooltip
             class="box-item"
             effect="dark"
-            content="Строка заблокирована"
+            :content="$t('common.locked')"
             placement="top"
           >
             <el-button link :icon="Lock" type="primary" disabled />
